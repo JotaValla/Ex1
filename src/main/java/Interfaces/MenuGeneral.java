@@ -211,7 +211,7 @@ public class MenuGeneral extends javax.swing.JFrame {
                 pn_content.revalidate();
             }
         });
-        MenuItem eliminarCliente = new MenuItem(null, true, iconEliminar, "Eliminar cliente", new ActionListener() {
+        MenuItem eliminarCliente = new MenuItem(null, true, iconEliminar, "Cambiar estado de cliente", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_content.removeAll();
@@ -269,7 +269,7 @@ public class MenuGeneral extends javax.swing.JFrame {
                 pn_content.revalidate();
             }
         });
-        MenuItem eliminarEmpleado = new MenuItem(null, true, iconEliminar, "Eliminar empleado", new ActionListener() {
+        MenuItem eliminarEmpleado = new MenuItem(null, true, iconEliminar, "Cambiar estado de empleado", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_content.removeAll();
@@ -307,7 +307,7 @@ public class MenuGeneral extends javax.swing.JFrame {
                 pn_content.revalidate();
             }
         });
-        MenuItem eliminarProducto = new MenuItem(null, true, iconEliminar, "Eliminar Producto", new ActionListener() {
+        MenuItem eliminarProducto = new MenuItem(null, true, iconEliminar, "Cambiar estado de Producto", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_content.removeAll();
@@ -345,7 +345,7 @@ public class MenuGeneral extends javax.swing.JFrame {
                 pn_content.revalidate();
             }
         });
-        MenuItem eliminarProveedor = new MenuItem(null, true, iconEliminar, "Eliminar Proveedor", new ActionListener() {
+        MenuItem eliminarProveedor = new MenuItem(null, true, iconEliminar, "Cambiar estado de Proveedor", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_content.removeAll();
