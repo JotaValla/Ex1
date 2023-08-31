@@ -7,14 +7,12 @@ import javax.swing.ImageIcon;
 import javax.swing.Icon;
 import javax.swing.JFrame;
 
-public class MenuGeneral extends javax.swing.JFrame {
+public class MenuGeneralEmpleados extends javax.swing.JFrame {
 
-    
 
-    public MenuGeneral() {
+    public MenuGeneralEmpleados() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
         execute();
     }
 
@@ -56,8 +54,8 @@ public class MenuGeneral extends javax.swing.JFrame {
         jPHeaderLayout.setHorizontalGroup(
             jPHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPHeaderLayout.createSequentialGroup()
-                .addGap(0, 638, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 643, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPHeaderLayout.setVerticalGroup(
             jPHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,9 +123,7 @@ public class MenuGeneral extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       this.setVisible(false);
-       LoginSGCH login = new LoginSGCH();
-       login.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
@@ -143,18 +139,18 @@ public class MenuGeneral extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuGeneralEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuGeneralEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuGeneralEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuGeneral.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuGeneralEmpleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuGeneral().setVisible(true);
+                new MenuGeneralEmpleados().setVisible(true);
             }
         });
     }
@@ -174,12 +170,9 @@ public class MenuGeneral extends javax.swing.JFrame {
     private void execute() {
         ImageIcon iconClientes = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\icon_clientes");
         ImageIcon iconFacturacion = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\icon_facturacion.png");
-        ImageIcon iconEmpleados = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\icon_empleados.png");
         ImageIcon iconInventario = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\img/icon_inventario.png");
         ImageIcon iconProveedores = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\img/icon_proveedores.png");
-        ImageIcon iconAdministracion = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\img/icon_administrador.png");
 
-        ImageIcon iconEliminar = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\icon_eliminar.png");
         ImageIcon iconBuscar = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\icon_buscar.png");
         ImageIcon iconAgregar = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\icon_agregar.png");
         ImageIcon iconActualizar = new ImageIcon(System.getProperty("user.dir") + "\\src\\main\\java\\img\\icon_actualizar.png");
@@ -211,16 +204,7 @@ public class MenuGeneral extends javax.swing.JFrame {
                 pn_content.revalidate();
             }
         });
-        MenuItem eliminarCliente = new MenuItem(null, true, iconEliminar, "Eliminar cliente", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPEliminarCliente());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem menuClientes = new MenuItem(iconClientes, false, null, "Clientes", null, agregarCliente, buscarCliente, actualizarCliente, eliminarCliente);
+        MenuItem menuClientes = new MenuItem(iconClientes, false, null, "Clientes", null, agregarCliente, buscarCliente, actualizarCliente);
 
         MenuItem crearFactura = new MenuItem(null, true, iconAgregar, "Crear Factura", new ActionListener() {
             @Override
@@ -241,44 +225,6 @@ public class MenuGeneral extends javax.swing.JFrame {
             }
         });
         MenuItem menuFacturacion = new MenuItem(iconFacturacion, false, null, "Facturación", null, crearFactura, buscarFactura);
-
-        MenuItem agregarEmpleado = new MenuItem(null, true, iconAgregar, "Agregar Empleado", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPAgregarEmpleado());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem buscarEmpleado = new MenuItem(null, true, iconBuscar, "Buscar Empleado", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPBuscarEmpleado());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem actualizarEmpleado = new MenuItem(null, true, iconActualizar, "Actualizar datos del empleado", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPActualizarEmpleado());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem eliminarEmpleado = new MenuItem(null, true, iconEliminar, "Eliminar empleado", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPEliminarEmpleado());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem menuEmpleados = new MenuItem(iconEmpleados, false, null, "Empleados", null, agregarEmpleado, buscarEmpleado, actualizarEmpleado, eliminarEmpleado);
 
         MenuItem agregarProducto = new MenuItem(null, true, iconAgregar, "Agregar Producto", new ActionListener() {
             @Override
@@ -307,26 +253,8 @@ public class MenuGeneral extends javax.swing.JFrame {
                 pn_content.revalidate();
             }
         });
-        MenuItem eliminarProducto = new MenuItem(null, true, iconEliminar, "Eliminar Producto", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPEliminarProducto());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem menuInventario = new MenuItem(iconInventario, false, null, "Inventario", null, agregarProducto, buscarProducto, actualizarProducto, eliminarProducto);
+        MenuItem menuInventario = new MenuItem(iconInventario, false, null, "Inventario", null, agregarProducto, buscarProducto, actualizarProducto);
 
-        MenuItem agregarProveedor = new MenuItem(null, true, iconAgregar, "Agregar Proveedor", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPAgregarProveedor());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
         MenuItem buscarProveedor = new MenuItem(null, true, iconBuscar, "Buscar Proveedor", new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -336,56 +264,9 @@ public class MenuGeneral extends javax.swing.JFrame {
                 pn_content.revalidate();
             }
         });
-        MenuItem actualizarProveedor = new MenuItem(null, true, iconActualizar, "Actualizar datos del Proveedor", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPActualizarProveedor());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem eliminarProveedor = new MenuItem(null, true, iconEliminar, "Eliminar Proveedor", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPEliminarProveedor());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem menuProveedores = new MenuItem(iconProveedores, false, null, "Proveedores", null, agregarProveedor, buscarProveedor, actualizarProveedor, eliminarProveedor);
+        MenuItem menuProveedores = new MenuItem(iconProveedores, false, null, "Proveedores", null, buscarProveedor);
 
-        MenuItem agregarCredenciales = new MenuItem(null, true, iconAgregar, "Agregar Credenciales", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPCrearCredenciales());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem manejoCredenciales = new MenuItem(null, true, iconAgregar, "Manejo de Credenciales", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPManejoCredenciales());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem manejoParametros = new MenuItem(null, true, iconActualizar, "Manejo de Parametros", new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                pn_content.removeAll();
-                pn_content.add(new jPManejoParametros());
-                pn_content.repaint();
-                pn_content.revalidate();
-            }
-        });
-        MenuItem menuAdministracion = new MenuItem(iconAdministracion, false, null, "Administración", null, agregarCredenciales,manejoCredenciales, manejoParametros);
-
-        addMenu(menuClientes, menuEmpleados, menuFacturacion, menuInventario, menuProveedores, menuAdministracion);
+        addMenu(menuClientes, menuFacturacion, menuInventario, menuProveedores);
     }
 
     private void addMenu(MenuItem... menu) {

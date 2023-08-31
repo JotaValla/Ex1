@@ -13,13 +13,15 @@ import javax.swing.JOptionPane;
 public class LoginSGCH extends javax.swing.JFrame {
 
     int xMouse, yMouse;
-    MenuGeneral programa;
+    MenuGeneral programaAdmin;
+    MenuGeneralEmpleados programaEmp;
     //Instanciamos
 
     public LoginSGCH() {
         initComponents();
         this.setLocationRelativeTo(this);
-        programa = new MenuGeneral();
+        programaAdmin = new MenuGeneral();
+        programaEmp = new MenuGeneralEmpleados();
     }
 
     @SuppressWarnings("unchecked")
@@ -253,9 +255,16 @@ public class LoginSGCH extends javax.swing.JFrame {
                 preparedStatement.setString(3, selectedRole); // Usar el rol seleccionado en la consulta
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     if (resultSet.next()) {
-                        // Credenciales válidas y rol correcto, acceder al sistema
-                        this.setVisible(false);
-                        programa.setVisible(true);
+                        // Credenciales válidas y rol correcto
+                        if (selectedRole.equals("Administrador")) {
+                            // Acceder al programa para administradores
+                            this.setVisible(false);
+                            programaAdmin.setVisible(true);
+                        } else if (selectedRole.equals("Caja")) {
+                            // Acceder al programa para cajas
+                            this.setVisible(false);
+                            programaEmp.setVisible(true);
+                        }
                     } else {
                         // Credenciales inválidas o rol incorrecto, mostrar mensaje de error
                         JOptionPane.showMessageDialog(null, "Credenciales inválidas o rol incorrecto", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
