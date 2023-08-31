@@ -20,8 +20,7 @@ public class CConexion {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             String cadenaConexion = "jdbc:sqlserver://"+ip+":"+puerto+";"+"databaseName="+bd+";"
                                                     +"encrypt=true;trustServerCertificate=true";
-            conectar = DriverManager.getConnection(cadenaConexion,usuario,contrasenia);
-            JOptionPane.showMessageDialog(null, "INGRESO CORRECTO A EL SISTEMA", "LOGIN", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+            conectar = DriverManager.getConnection(cadenaConexion,usuario,contrasenia);   
         } catch (Exception e) {
            JOptionPane.showMessageDialog(null, "No se conecto correctamente a la base de datos");
         }

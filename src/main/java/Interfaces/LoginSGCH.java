@@ -2,18 +2,20 @@ package Interfaces;
 
 import ConexionBD.CConexion;
 import java.awt.Color;
-
-import java.util.Arrays;
+import java.awt.HeadlessException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
-
 
 public class LoginSGCH extends javax.swing.JFrame {
 
     int xMouse, yMouse;
     MenuGeneral programa;
     //Instanciamos
-    
+
     public LoginSGCH() {
         initComponents();
         this.setLocationRelativeTo(this);
@@ -40,6 +42,8 @@ public class LoginSGCH extends javax.swing.JFrame {
         loginBtn = new javax.swing.JPanel();
         loginBtnTxt = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        userLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -54,7 +58,7 @@ public class LoginSGCH extends javax.swing.JFrame {
         logoname.setForeground(new java.awt.Color(0, 0, 0));
         logoname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logoname.setText("SISTEMA DE GESTION DE CHOCOLATERIA");
-        bg.add(logoname, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 10, 390, 90));
+        bg.add(logoname, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 390, 90));
 
         citybg.setBackground(new java.awt.Color(0, 134, 190));
         citybg.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\src\\main\\java\\img\\logoo.jpg"));
@@ -119,7 +123,7 @@ public class LoginSGCH extends javax.swing.JFrame {
 
         title.setFont(new java.awt.Font("Roboto Black", 1, 24)); // NOI18N
         title.setText("INICIAR SESIÓN");
-        bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+        bg.add(title, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
 
         userLabel.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
         userLabel.setText("USUARIO");
@@ -202,11 +206,18 @@ public class LoginSGCH extends javax.swing.JFrame {
         jLabel2.setText("RaqEri Cacao");
         bg.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 350, 60));
 
+        userLabel1.setFont(new java.awt.Font("Roboto Light", 1, 14)); // NOI18N
+        userLabel1.setText("USUARIO");
+        bg.add(userLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar tipo de usuario", "Administrador", "Caja" }));
+        bg.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 152, 410, 30));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,14 +236,34 @@ public class LoginSGCH extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBtnTxtMouseEntered
 
     private void loginBtnTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginBtnTxtMouseClicked
-        if (this.userTxt.getText().equals("admin")
-            && Arrays.equals(this.passTxt.getPassword(), new char[]{'1', '2', '3', '4'})) {
+        String username = userTxt.getText();
+        char[] passwordChars = passTxt.getPassword();
+        String password = new String(passwordChars);
+        String selectedRole = jComboBox1.getSelectedItem().toString(); // Obtener el rol seleccionado
+
+        Connection conx = null;
+
+        try {
             CConexion objetoConexion = new CConexion();
-            objetoConexion.establecerConexion();
-            this.setVisible(false);
-            programa.setVisible(true);
-        } else {
-            JOptionPane.showConfirmDialog(null, "Datos incorrectos, vuelva a intentar", "CONECTANDO ...", JOptionPane.WARNING_MESSAGE);
+            conx = objetoConexion.establecerConexion();
+            String query = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasenia = ? AND rol = ?";
+            try (PreparedStatement preparedStatement = conx.prepareStatement(query)) {
+                preparedStatement.setString(1, username);
+                preparedStatement.setString(2, password);
+                preparedStatement.setString(3, selectedRole); // Usar el rol seleccionado en la consulta
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        // Credenciales válidas y rol correcto, acceder al sistema
+                        this.setVisible(false);
+                        programa.setVisible(true);
+                    } else {
+                        // Credenciales inválidas o rol incorrecto, mostrar mensaje de error
+                        JOptionPane.showMessageDialog(null, "Credenciales inválidas o rol incorrecto", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        } catch (HeadlessException | SQLException e) {
+            System.out.println(e);
         }
     }//GEN-LAST:event_loginBtnTxtMouseClicked
 
@@ -287,7 +318,6 @@ public class LoginSGCH extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_exitTxtMouseClicked
 
-  
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -303,6 +333,7 @@ public class LoginSGCH extends javax.swing.JFrame {
     private javax.swing.JPanel exitBtn;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -313,6 +344,7 @@ public class LoginSGCH extends javax.swing.JFrame {
     private javax.swing.JPasswordField passTxt;
     private javax.swing.JLabel title;
     private javax.swing.JLabel userLabel;
+    private javax.swing.JLabel userLabel1;
     private javax.swing.JTextField userTxt;
     // End of variables declaration//GEN-END:variables
 }
