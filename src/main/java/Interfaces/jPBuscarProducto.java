@@ -1,5 +1,8 @@
-
 package Interfaces;
+
+
+import Clases.Producto;
+import Clases.SQLServer;
 
 /**
  *
@@ -12,6 +15,8 @@ public class jPBuscarProducto extends javax.swing.JPanel {
      */
     public jPBuscarProducto() {
         initComponents();
+        SQLServer metodos = new SQLServer();
+        metodos.mostrarProductos(jTable1);
     }
 
     /**
@@ -38,21 +43,21 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtNombresCliente = new javax.swing.JTextField();
+        txtNomProd = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNombresCliente1 = new javax.swing.JTextField();
-        txtNombresCliente2 = new javax.swing.JTextField();
+        txtDescProd = new javax.swing.JTextField();
+        txtCodProd = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtNombresCliente3 = new javax.swing.JTextField();
+        txtPesoProd = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        txtNombresCliente9 = new javax.swing.JTextField();
+        txtPrecioProd = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbCatProd = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jSpinner2 = new javax.swing.JSpinner();
+        jspContCacao = new javax.swing.JSpinner();
+        jspCantProd = new javax.swing.JSpinner();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -163,6 +168,11 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                 "Código del producto", "Nombre del producto", "Precio", "Cantidad en stock", "Categoría"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -188,17 +198,17 @@ public class jPBuscarProducto extends javax.swing.JPanel {
 
         jLabel1.setText("Nombre del producto:");
 
-        txtNombresCliente.addActionListener(new java.awt.event.ActionListener() {
+        txtNomProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombresClienteActionPerformed(evt);
+                txtNomProdActionPerformed(evt);
             }
         });
 
         jLabel2.setText("Descripción del producto:");
 
-        txtNombresCliente2.setEditable(false);
-        txtNombresCliente2.setEnabled(false);
-        txtNombresCliente2.setOpaque(true);
+        txtCodProd.setEditable(false);
+        txtCodProd.setEnabled(false);
+        txtCodProd.setOpaque(true);
 
         jLabel3.setText("Código del producto:");
 
@@ -210,7 +220,7 @@ public class jPBuscarProducto extends javax.swing.JPanel {
 
         jLabel10.setText("Precio $:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCatProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel11.setText("Cantidad en cacao del producto %:");
 
@@ -223,17 +233,17 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombresCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNomProd, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombresCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDescProd, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNombresCliente2, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+                            .addComponent(txtCodProd, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,20 +251,20 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNombresCliente3, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                            .addComponent(txtPesoProd, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinner2))
+                            .addComponent(jspCantProd))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jspContCacao, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtNombresCliente9, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtPrecioProd, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(jcbCatProd, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -267,9 +277,9 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombresCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombresCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNomProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -277,33 +287,51 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombresCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombresCliente9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPesoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPrecioProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbCatProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel11))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jspContCacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jspCantProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 990, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombresClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresClienteActionPerformed
+    private void txtNomProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomProdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombresClienteActionPerformed
+    }//GEN-LAST:event_txtNomProdActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow >= 0) {
+            String codigoProducto = jTable1.getValueAt(selectedRow, 0).toString();
+            Producto producto = SQLServer.obtenerProductoPorCodigo(codigoProducto);
+
+            if (producto != null) {
+                txtCodProd.setText(producto.getCodProducto());
+                txtNomProd.setText(producto.getNombreProducto());
+                txtDescProd.setText(producto.getDescripcionProducto());
+                txtPrecioProd.setText(producto.getPrecioUnit().toString());
+                txtPesoProd.setText(producto.getPesoNeto().toString());
+                jspCantProd.setValue(Integer.toString(producto.getCantStock()));
+                jspContCacao.setValue(producto.getContCacao().toString());
+                
+            }
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -318,17 +346,18 @@ public class jPBuscarProducto extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> jcbCatProd;
+    private javax.swing.JSpinner jspCantProd;
+    private javax.swing.JSpinner jspContCacao;
     private javax.swing.JLabel lblHeaderTitle;
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel panelHeader;
-    private javax.swing.JTextField txtNombresCliente;
-    private javax.swing.JTextField txtNombresCliente1;
-    private javax.swing.JTextField txtNombresCliente2;
-    private javax.swing.JTextField txtNombresCliente3;
-    private javax.swing.JTextField txtNombresCliente9;
+    private javax.swing.JTextField txtCodProd;
+    private javax.swing.JTextField txtDescProd;
+    private javax.swing.JTextField txtNomProd;
+    private javax.swing.JTextField txtPesoProd;
+    private javax.swing.JTextField txtPrecioProd;
     // End of variables declaration//GEN-END:variables
 }

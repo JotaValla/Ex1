@@ -113,29 +113,29 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtNombresCliente" min="-2" pref="690" max="-2" attributes="0"/>
+                              <Component id="txtnomProd" min="-2" pref="690" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="txtNombresCliente1" alignment="0" min="-2" pref="690" max="-2" attributes="0"/>
+                                  <Component id="txtDescProd" alignment="0" min="-2" pref="690" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                           <Component id="jLabel3" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                                          <Component id="txtNombresCliente2" alignment="0" pref="324" max="32767" attributes="0"/>
+                                          <Component id="txtPrecio" alignment="0" pref="324" max="32767" attributes="0"/>
                                           <Component id="jLabel10" alignment="0" min="-2" pref="153" max="-2" attributes="0"/>
-                                          <Component id="jSpinner2" max="32767" attributes="0"/>
+                                          <Component id="jSPContCacao" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="jLabel4" min="-2" pref="124" max="-2" attributes="0"/>
-                                          <Component id="txtNombresCliente8" alignment="0" pref="340" max="32767" attributes="0"/>
+                                          <Component id="txtCodProd" alignment="0" pref="340" max="32767" attributes="0"/>
                                           <Component id="jLabel9" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                                          <Component id="jComboBox1" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="jSpinner1" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jcboCatProd" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="jSPCantStock" alignment="0" max="32767" attributes="0"/>
                                           <Component id="jLabel11" alignment="0" min="-2" pref="149" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                               <Component id="jLabel8" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                              <Component id="txtNombresCliente7" alignment="0" min="-2" pref="324" max="-2" attributes="0"/>
+                              <Component id="txtPesoNeto" alignment="0" min="-2" pref="324" max="-2" attributes="0"/>
                               <Component id="jLabel1" alignment="0" min="-2" pref="131" max="-2" attributes="0"/>
                               <Component id="jLabel2" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
                           </Group>
@@ -149,11 +149,11 @@
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtNombresCliente" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtnomProd" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="txtNombresCliente1" min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="txtDescProd" min="-2" pref="46" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -161,8 +161,8 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtNombresCliente2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPrecio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSPCantStock" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -171,8 +171,8 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtNombresCliente7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNombresCliente8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtPesoNeto" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCodProd" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -181,8 +181,8 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jSpinner2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jcboCatProd" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jSPContCacao" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="22" max="32767" attributes="0"/>
                       </Group>
@@ -195,16 +195,16 @@
                     <Property name="text" type="java.lang.String" value="Nombre del producto:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtNombresCliente">
+                <Component class="javax.swing.JTextField" name="txtnomProd">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel2">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Descripci&#xf3;n del producto:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtNombresCliente1">
+                <Component class="javax.swing.JTextField" name="txtDescProd">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtNombresCliente2">
+                <Component class="javax.swing.JTextField" name="txtPrecio">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>
@@ -221,14 +221,14 @@
                     <Property name="text" type="java.lang.String" value="Peso neto (g):"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtNombresCliente7">
+                <Component class="javax.swing.JTextField" name="txtPesoNeto">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel9">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="C&#xf3;digo del producto:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtNombresCliente8">
+                <Component class="javax.swing.JTextField" name="txtCodProd">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel10">
                   <Properties>
@@ -240,14 +240,18 @@
                     <Property name="text" type="java.lang.String" value="Categor&#xed;a del producto:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox1">
+                <Component class="javax.swing.JComboBox" name="jcboCatProd">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
-                        <StringItem index="0" value="Item 1"/>
-                        <StringItem index="1" value="Item 2"/>
-                        <StringItem index="2" value="Item 3"/>
-                        <StringItem index="3" value="Item 4"/>
+                      <StringArray count="8">
+                        <StringItem index="0" value="Chocolate y confiter&#xed;a"/>
+                        <StringItem index="1" value="Bebidas de cacao"/>
+                        <StringItem index="2" value="Productos en polvo"/>
+                        <StringItem index="3" value="Aceites"/>
+                        <StringItem index="4" value="Reposter&#xed;a"/>
+                        <StringItem index="5" value="Artesanales"/>
+                        <StringItem index="6" value="Org&#xe1;nicos"/>
+                        <StringItem index="7" value="Decoraci&#xf3;n"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -255,9 +259,9 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner1">
+                <Component class="javax.swing.JSpinner" name="jSPCantStock">
                 </Component>
-                <Component class="javax.swing.JSpinner" name="jSpinner2">
+                <Component class="javax.swing.JSpinner" name="jSPContCacao">
                 </Component>
               </SubComponents>
             </Container>
@@ -275,7 +279,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="155" max="-2" attributes="0"/>
+                          <Component id="btnAgg" min="-2" pref="155" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="jButton2" min="-2" pref="156" max="-2" attributes="0"/>
                           <EmptySpace pref="198" max="32767" attributes="0"/>
@@ -287,7 +291,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAgg" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="19" max="32767" attributes="0"/>
@@ -296,10 +300,13 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="btnAgg">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Agregar "/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAggActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="jButton2">
                   <Properties>

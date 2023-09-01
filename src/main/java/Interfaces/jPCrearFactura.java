@@ -4,6 +4,15 @@
  */
 package Interfaces;
 
+import Clases.ClienteMayorista;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author User
@@ -13,8 +22,10 @@ public class jPCrearFactura extends javax.swing.JPanel {
     /**
      * Creates new form jPAgregarCliente
      */
+    
     public jPCrearFactura() {
         initComponents();
+        
     }
 
     /**
@@ -37,14 +48,12 @@ public class jPCrearFactura extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
         jLabel5 = new javax.swing.JLabel();
-        jToggleButton2 = new javax.swing.JToggleButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txtNombresCliente3 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         txtNombresCliente6 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -53,6 +62,9 @@ public class jPCrearFactura extends javax.swing.JPanel {
         txtNombresCliente4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         txtNombresCliente5 = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -85,7 +97,7 @@ public class jPCrearFactura extends javax.swing.JPanel {
                         .addGap(15, 15, 15))))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos "));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Factura"));
 
         jLabel3.setText("Número de identificación del cliente:");
 
@@ -97,13 +109,6 @@ public class jPCrearFactura extends javax.swing.JPanel {
         });
 
         jLabel5.setText("Seleccione el producto:");
-
-        jToggleButton2.setText("Agregar producto");
-        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton2ActionPerformed(evt);
-            }
-        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -130,8 +135,6 @@ public class jPCrearFactura extends javax.swing.JPanel {
 
         jLabel7.setText("Descuento:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel8.setText("Cantidad del producto:");
 
         jLabel9.setText("Iva:");
@@ -139,6 +142,15 @@ public class jPCrearFactura extends javax.swing.JPanel {
         jLabel2.setText("Total a pagar:");
 
         jLabel6.setText("Fecha:");
+
+        jButton3.setText("Buscar producto a agregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Producto seleccionado:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,10 +163,6 @@ public class jPCrearFactura extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
@@ -171,19 +179,26 @@ public class jPCrearFactura extends javax.swing.JPanel {
                                     .addComponent(txtNombresCliente6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addGap(1, 1, 1)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel1))
                                             .addGap(18, 18, 18)
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jToggleButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                                    .addComponent(jTextField2)
+                                                    .addGap(18, 18, 18)
+                                                    .addComponent(jLabel8))
+                                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+                                        .addComponent(jTextField1))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,7 +208,7 @@ public class jPCrearFactura extends javax.swing.JPanel {
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(29, 29, 29)
                                 .addComponent(txtNombresCliente7, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,16 +221,13 @@ public class jPCrearFactura extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addComponent(jToggleButton2)))
+                    .addComponent(jButton3))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -240,6 +252,11 @@ public class jPCrearFactura extends javax.swing.JPanel {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
         jButton1.setText("Crear factura");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -252,7 +269,7 @@ public class jPCrearFactura extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,16 +313,61 @@ public class jPCrearFactura extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
-    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton2ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        jFBuscarProductoFactura productoAgregar = new jFBuscarProductoFactura();
+        productoAgregar.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+                    String idFact = t
+                    String nroID = txtNroID.getText();
+                    String nomCli = txtNomCli.getText();
+                    String apeCli = txtApeCli.getText();
+                    String dirCli = txtDirCli.getText();
+                    String correoCli = txtCorrCli.getText();
+                    String numCli = txtNumCli.getText();
+                    String fechaNa = txtFechaNa.getText();
+                    String prefProd = jcbPrefCli.getSelectedItem().toString();
+                    String tipoCli = jcbTipoCli.getSelectedItem().toString();
+                    String a = mayorista.nomLocal;
+                    String b = mayorista.telfLocal;
+                    String c = mayorista.dirLocal;
+                    boolean estadoActivo = true;
+
+                    System.out.println(tipoID);
+                    System.out.println(nroID);
+
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                    Date fechaNacimiento = formatoFecha.parse(fechaNa);
+                    Timestamp fechaNaci = new Timestamp(fechaNacimiento.getTime());
+
+                    // Obtener la fecha actual del sistema
+                    Date fechaActual = new Date();
+                    SimpleDateFormat formatoFechaActual = new SimpleDateFormat("dd/MM/yyyy");
+                    String fechaIngresoStr = formatoFechaActual.format(fechaActual);
+
+                    // Convertir la fecha actual formateada a un objeto Timestamp
+                    Timestamp fechaIngreso = new Timestamp(fechaActual.getTime());
+
+                    // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
+                    ClienteMayorista cliente = new ClienteMayorista(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli, prefProd, tipoCli, a, b, c, fechaNaci,estadoActivo);
+                    metodosSQL.GuardarClienteMayorista(cliente);
+                    // Continuar con la lógica para guardar el cliente en la base de datos
+                } catch (ParseException ex) {
+                    System.out.println(ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(jPAgregarCliente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDatos;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -320,8 +382,8 @@ public class jPCrearFactura extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel lblHeaderTitle;
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel mainPanel;
