@@ -5,6 +5,10 @@
 package Interfaces;
 
 import Clases.ClienteMayorista;
+import ConexionBD.CConexion;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -12,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,10 +27,11 @@ public class jPCrearFactura extends javax.swing.JPanel {
     /**
      * Creates new form jPAgregarCliente
      */
-    
+    String nombreCliente;
+
     public jPCrearFactura() {
         initComponents();
-        
+
     }
 
     /**
@@ -43,10 +49,8 @@ public class jPCrearFactura extends javax.swing.JPanel {
         lblHeaderTitle = new javax.swing.JLabel();
         lblIconHeader = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        txtNombresCliente2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jToggleButton1 = new javax.swing.JToggleButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -65,6 +69,9 @@ public class jPCrearFactura extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
+        btnBuscarCliente = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -99,14 +106,7 @@ public class jPCrearFactura extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Factura"));
 
-        jLabel3.setText("Número de identificación del cliente:");
-
-        jToggleButton1.setText("Buscar cliente");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
-            }
-        });
+        jLabel3.setText("Busque el cliente a facturar:");
 
         jLabel5.setText("Seleccione el producto:");
 
@@ -152,6 +152,16 @@ public class jPCrearFactura extends javax.swing.JPanel {
 
         jLabel1.setText("Producto seleccionado:");
 
+        btnBuscarCliente.setText("Buscar cliente a agregar");
+        btnBuscarCliente.setActionCommand("Bucar cliente a agregar");
+        btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("Cliente seleccionado:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -179,26 +189,28 @@ public class jPCrearFactura extends javax.swing.JPanel {
                                     .addComponent(txtNombresCliente6, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                     .addGap(1, 1, 1)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(btnBuscarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jLabel1))
                                             .addGap(18, 18, 18)
-                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                                     .addComponent(jTextField2)
                                                     .addGap(18, 18, 18)
                                                     .addComponent(jLabel8))
-                                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE))))
+                                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel10)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jTextField3)))
                                     .addGap(18, 18, 18)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                                        .addComponent(jTextField1))))
+                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,10 +227,13 @@ public class jPCrearFactura extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jToggleButton1)
-                    .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
+                    .addComponent(jLabel3)
+                    .addComponent(btnBuscarCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jButton3))
@@ -269,7 +284,7 @@ public class jPCrearFactura extends javax.swing.JPanel {
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,65 +324,57 @@ public class jPCrearFactura extends javax.swing.JPanel {
         add(mainPanel);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         jFBuscarProductoFactura productoAgregar = new jFBuscarProductoFactura();
         productoAgregar.setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-                    String idFact = t
-                    String nroID = txtNroID.getText();
-                    String nomCli = txtNomCli.getText();
-                    String apeCli = txtApeCli.getText();
-                    String dirCli = txtDirCli.getText();
-                    String correoCli = txtCorrCli.getText();
-                    String numCli = txtNumCli.getText();
-                    String fechaNa = txtFechaNa.getText();
-                    String prefProd = jcbPrefCli.getSelectedItem().toString();
-                    String tipoCli = jcbTipoCli.getSelectedItem().toString();
-                    String a = mayorista.nomLocal;
-                    String b = mayorista.telfLocal;
-                    String c = mayorista.dirLocal;
-                    boolean estadoActivo = true;
 
-                    System.out.println(tipoID);
-                    System.out.println(nroID);
 
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-                    Date fechaNacimiento = formatoFecha.parse(fechaNa);
-                    Timestamp fechaNaci = new Timestamp(fechaNacimiento.getTime());
-
-                    // Obtener la fecha actual del sistema
-                    Date fechaActual = new Date();
-                    SimpleDateFormat formatoFechaActual = new SimpleDateFormat("dd/MM/yyyy");
-                    String fechaIngresoStr = formatoFechaActual.format(fechaActual);
-
-                    // Convertir la fecha actual formateada a un objeto Timestamp
-                    Timestamp fechaIngreso = new Timestamp(fechaActual.getTime());
-
-                    // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
-                    ClienteMayorista cliente = new ClienteMayorista(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli, prefProd, tipoCli, a, b, c, fechaNaci,estadoActivo);
-                    metodosSQL.GuardarClienteMayorista(cliente);
-                    // Continuar con la lógica para guardar el cliente en la base de datos
-                } catch (ParseException ex) {
-                    System.out.println(ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(jPAgregarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//        String idCli = txtidCli.getText();
+//        CConexion objetoConexion = new CConexion();
+//        String sql = "SELECT NOMBRES_CLIENTE FROM CLIENTES WHERE ID_CLIENTE = ?;";
+//
+//        try {
+//            Connection conn = objetoConexion.establecerConexion();
+//            CallableStatement cs = conn.prepareCall(sql);
+//            cs.setString(1, idCli);
+//
+//            ResultSet rs = cs.executeQuery();
+//
+//            if (rs.next()) {
+//                // El cliente existe, obtenemos su nombre
+//                nombreCliente = rs.getString("NOMBRE");
+//                System.out.println("Cliente existe");
+//            } else {
+//                // El cliente no existe
+//                JOptionPane.showMessageDialog(null, "Cliente no existe");
+//            }
+//
+//            // Cierra los recursos (ResultSet, Statement y Connection)
+//            rs.close();
+//            cs.close();
+//            conn.close();
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//            JOptionPane.showMessageDialog(null, "Error al verificar el cliente");
+//        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnBuscarClienteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDatos;
+    private javax.swing.JButton btnBuscarCliente;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -383,12 +390,11 @@ public class jPCrearFactura extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblHeaderTitle;
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel panelHeader;
-    private javax.swing.JTextField txtNombresCliente2;
     private javax.swing.JTextField txtNombresCliente3;
     private javax.swing.JTextField txtNombresCliente4;
     private javax.swing.JTextField txtNombresCliente5;
