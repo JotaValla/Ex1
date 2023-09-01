@@ -4,6 +4,9 @@
  */
 package Interfaces;
 
+import Clases.ClienteParticular;
+import Clases.SQLServer;
+
 /**
  *
  * @author User
@@ -15,6 +18,8 @@ public class jPBuscarCliente extends javax.swing.JPanel {
      */
     public jPBuscarCliente() {
         initComponents();
+        SQLServer metodos = new SQLServer();
+        metodos.mostrarClientes(jtClientes);
     }
 
     /**
@@ -39,26 +44,26 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtClientes = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtNombresCliente = new javax.swing.JTextField();
+        txtnomCli = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtNombresCliente1 = new javax.swing.JTextField();
-        txtNombresCliente2 = new javax.swing.JTextField();
+        txtnApCli = new javax.swing.JTextField();
+        txtNumID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtNombresCliente3 = new javax.swing.JTextField();
+        txtNumCont = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        txtNombresCliente7 = new javax.swing.JTextField();
-        txtNombresCliente8 = new javax.swing.JTextField();
+        txtFechNaCli = new javax.swing.JTextField();
+        txtDirDomi = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        txtNombresCliente9 = new javax.swing.JTextField();
+        txtcorrCli = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcboPrefCli = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        jcbTipoCli = new javax.swing.JComboBox<>();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -161,7 +166,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de clientes"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -172,7 +177,12 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                 "Número de cédula", "Nombres", "Apellidos"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jtClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtClientes);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -197,9 +207,9 @@ public class jPBuscarCliente extends javax.swing.JPanel {
 
         jLabel1.setText("Nombres:");
 
-        txtNombresCliente.addActionListener(new java.awt.event.ActionListener() {
+        txtnomCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombresClienteActionPerformed(evt);
+                txtnomCliActionPerformed(evt);
             }
         });
 
@@ -217,11 +227,11 @@ public class jPBuscarCliente extends javax.swing.JPanel {
 
         jLabel11.setText("Preferencia productos:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcboPrefCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
 
         jLabel12.setText("Tipo cliente:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbTipoCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mayorista", "Particular" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -233,13 +243,13 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombresCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtnomCli, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombresCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtnApCli, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -247,25 +257,25 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                         .addGap(12, 12, 12)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNumID, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtNombresCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNumCont, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombresCliente9, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtcorrCli, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtNombresCliente7, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtFechNaCli, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtNombresCliente8, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDirDomi, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(4, 4, 4)
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbTipoCli, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcboPrefCli, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -278,9 +288,9 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombresCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombresCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnomCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtnApCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -288,27 +298,48 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombresCliente3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombresCliente9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombresCliente7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNumCont, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtcorrCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFechNaCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombresCliente8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDirDomi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcboPrefCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbTipoCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 990, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNombresClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombresClienteActionPerformed
+    private void txtnomCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomCliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombresClienteActionPerformed
+    }//GEN-LAST:event_txtnomCliActionPerformed
+
+    private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
+        int filaSeleccionada = jtClientes.getSelectedRow();
+        if (filaSeleccionada >= 0) {
+            String nroCedulaSeleccionada = jtClientes.getValueAt(filaSeleccionada, 0).toString();
+            SQLServer sqlServer = new SQLServer();
+            ClienteParticular clienteSeleccionado = sqlServer.obtenerClientePorCedula(nroCedulaSeleccionada);
+
+            // Llena los campos con los datos del cliente obtenidos
+            txtnomCli.setText(clienteSeleccionado.getNombres());
+            txtnApCli.setText(clienteSeleccionado.getApellidos());
+            txtDirDomi.setText(clienteSeleccionado.getDireccion());
+            txtFechNaCli.setText(clienteSeleccionado.getFecha().toString());
+            txtcorrCli.setText(clienteSeleccionado.getCorreo());
+            txtNumCont.setText(clienteSeleccionado.getTelf());
+            txtNumID.setText(clienteSeleccionado.getNroID());
+            jcbTipoCli.setSelectedItem(clienteSeleccionado.getTipoCliente());
+            jcboPrefCli.setSelectedItem(clienteSeleccionado.getPrefProd());
+            // Llena los otros campos con los valores correspondientes
+        }
+    }//GEN-LAST:event_jtClientesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -316,8 +347,6 @@ public class jPBuscarCliente extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -333,17 +362,19 @@ public class jPBuscarCliente extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JComboBox<String> jcbTipoCli;
+    private javax.swing.JComboBox<String> jcboPrefCli;
+    private javax.swing.JTable jtClientes;
     private javax.swing.JLabel lblHeaderTitle;
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel panelHeader;
-    private javax.swing.JTextField txtNombresCliente;
-    private javax.swing.JTextField txtNombresCliente1;
-    private javax.swing.JTextField txtNombresCliente2;
-    private javax.swing.JTextField txtNombresCliente3;
-    private javax.swing.JTextField txtNombresCliente7;
-    private javax.swing.JTextField txtNombresCliente8;
-    private javax.swing.JTextField txtNombresCliente9;
+    private javax.swing.JTextField txtDirDomi;
+    private javax.swing.JTextField txtFechNaCli;
+    private javax.swing.JTextField txtNumCont;
+    private javax.swing.JTextField txtNumID;
+    private javax.swing.JTextField txtcorrCli;
+    private javax.swing.JTextField txtnApCli;
+    private javax.swing.JTextField txtnomCli;
     // End of variables declaration//GEN-END:variables
 }

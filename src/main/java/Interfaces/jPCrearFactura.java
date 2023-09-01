@@ -107,17 +107,17 @@ public class jPCrearFactura extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Cantidad", "Descripción", "Cantidad ", "P. Unitario", "Descuento", "Iva", "Total "
+                "ID", "Nombre", "Cantidad ", "P. Unitario", "Descuento", "Iva", "Total "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, true, false, true, true, true, true, true
+                true, false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -216,9 +216,9 @@ public class jPCrearFactura extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jToggleButton2)))
-                .addGap(28, 28, 28)
+                .addGap(22, 22, 22)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
