@@ -63,7 +63,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
         jcbTipoCli = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnAggCli = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         lblHeaderTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         lblHeaderTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -104,7 +104,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
         jLabel8.setText("Tipo de identificación:");
 
-        jcbTipoID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cédula", "Pasaporte", "RUC" }));
+        jcbTipoID.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Cédula", "Pasaporte", "RUC" }));
 
         jLabel9.setText("Dirección de domicilio:");
 
@@ -114,7 +114,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
         jLabel6.setText("Preferencia de producto:");
 
-        jcbPrefCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
+        jcbPrefCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
         jcbPrefCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbPrefCliActionPerformed(evt);
@@ -123,7 +123,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
         jLabel10.setText("Tipo cliente:");
 
-        jcbTipoCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mayorista", "Particular" }));
+        jcbTipoCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Mayorista", "Particular" }));
         jcbTipoCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcbTipoCliActionPerformed(evt);
@@ -223,10 +223,10 @@ public class jPAgregarCliente extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -238,7 +238,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
                 .addGap(190, 190, 190)
                 .addComponent(btnAggCli, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -247,7 +247,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAggCli)
-                    .addComponent(jButton2))
+                    .addComponent(btnCancelar))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -286,111 +286,113 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
         switch (jcbTipoCli.getSelectedIndex()) {
             case 0:
+                break;
+            case 1:
                 mayorista.setVisible(true);
                 nomlocal = mayorista.nomLocal;
                 telflocal = mayorista.telfLocal;
                 dirlocal = mayorista.dirLocal;
-
+                break;
+            case 2:
+                break;
             default:
                 throw new AssertionError();
         }
     }//GEN-LAST:event_jcbTipoCliActionPerformed
 
     private void btnAggCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggCliActionPerformed
-   
+
         switch (jcbTipoCli.getSelectedIndex()) {
-            case 0:
+            case 1:
                 try {
-                    String tipoID = jcbTipoID.getSelectedItem().toString();
-                    String nroID = txtNroID.getText();
-                    String nomCli = txtNomCli.getText();
-                    String apeCli = txtApeCli.getText();
-                    String dirCli = txtDirCli.getText();
-                    String correoCli = txtCorrCli.getText();
-                    String numCli = txtNumCli.getText();
-                    String fechaNa = txtFechaNa.getText();
-                    String prefProd = jcbPrefCli.getSelectedItem().toString();
-                    String tipoCli = jcbTipoCli.getSelectedItem().toString();
-                    String a = mayorista.nomLocal;
-                    String b = mayorista.telfLocal;
-                    String c = mayorista.dirLocal;
-                    int tipoCliIndice = jcbPrefCli.getSelectedIndex();
-                    boolean estadoActivo = true;
+                String tipoID = jcbTipoID.getSelectedItem().toString();
+                String nroID = txtNroID.getText();
+                String nomCli = txtNomCli.getText();
+                String apeCli = txtApeCli.getText();
+                String dirCli = txtDirCli.getText();
+                String correoCli = txtCorrCli.getText();
+                String numCli = txtNumCli.getText();
+                String fechaNa = txtFechaNa.getText();
+                String prefProd = jcbPrefCli.getSelectedItem().toString();
+                String tipoCli = jcbTipoCli.getSelectedItem().toString();
+                String a = mayorista.nomLocal;
+                String b = mayorista.telfLocal;
+                String c = mayorista.dirLocal;
+                int prefCli = jcbPrefCli.getSelectedIndex();
+                boolean estadoActivo = true;
 
-                    System.out.println(tipoID);
-                    System.out.println(nroID);
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                Date fechaNacimiento = formatoFecha.parse(fechaNa);
+                Timestamp fechaNaci = new Timestamp(fechaNacimiento.getTime());
 
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-                    Date fechaNacimiento = formatoFecha.parse(fechaNa);
-                    Timestamp fechaNaci = new Timestamp(fechaNacimiento.getTime());
+                // Obtener la fecha actual del sistema
+                Date fechaActual = new Date();
+                SimpleDateFormat formatoFechaActual = new SimpleDateFormat("dd/MM/yyyy");
+                String fechaIngresoStr = formatoFechaActual.format(fechaActual);
 
-                    // Obtener la fecha actual del sistema
-                    Date fechaActual = new Date();
-                    SimpleDateFormat formatoFechaActual = new SimpleDateFormat("dd/MM/yyyy");
-                    String fechaIngresoStr = formatoFechaActual.format(fechaActual);
+                // Convertir la fecha actual formateada a un objeto Timestamp
+                Timestamp fechaIngreso = new Timestamp(fechaActual.getTime());
 
-                    // Convertir la fecha actual formateada a un objeto Timestamp
-                    Timestamp fechaIngreso = new Timestamp(fechaActual.getTime());
-
-                    // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
-                    ClienteMayorista cliente = new ClienteMayorista(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli, prefProd, tipoCli, a, b, c, fechaNaci,estadoActivo);
-                    metodosSQL.GuardarClienteMayorista(cliente, tipoCliIndice);
-                    // Continuar con la lógica para guardar el cliente en la base de datos
-                } catch (ParseException ex) {
-                    System.out.println(ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(jPAgregarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                break;
-           case 1:
+                // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
+                ClienteMayorista cliente = new ClienteMayorista(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli, prefProd, tipoCli, a, b, c, fechaNaci, estadoActivo);
+                    System.out.println();
+                metodosSQL.GuardarClienteMayorista(cliente, prefCli);
+                limpiarDatosCliente();
+            } catch (ParseException ex) {
+                System.out.println(ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(jPAgregarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            break;
+            case 2:
                  try {
-                    String tipoID = jcbTipoID.getSelectedItem().toString();
-                    String nroID = txtNroID.getText();
-                    String nomCli = txtNomCli.getText();
-                    String apeCli = txtApeCli.getText();
-                    String dirCli = txtDirCli.getText();
-                    String correoCli = txtCorrCli.getText();
-                    String numCli = txtNumCli.getText();
-                    String fechaNa = txtFechaNa.getText();
-                    String prefProd = jcbPrefCli.getSelectedItem().toString();
-                    String tipoCli = jcbTipoCli.getSelectedItem().toString();
-                    int tipoCliIndice = jcbPrefCli.getSelectedIndex();
-                    boolean estadoActivo = true;
+                String tipoID = jcbTipoID.getSelectedItem().toString();
+                String nroID = txtNroID.getText();
+                String nomCli = txtNomCli.getText();
+                String apeCli = txtApeCli.getText();
+                String dirCli = txtDirCli.getText();
+                String correoCli = txtCorrCli.getText();
+                String numCli = txtNumCli.getText();
+                String fechaNa = txtFechaNa.getText();
+                String prefProd = jcbPrefCli.getSelectedItem().toString();
+                String tipoCli = jcbTipoCli.getSelectedItem().toString();
+                int prefCli = jcbPrefCli.getSelectedIndex();
+                boolean estadoActivo = true;
+                SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+                Date fechaNacimiento = formatoFecha.parse(fechaNa);
+                Timestamp fechaNaci = new Timestamp(fechaNacimiento.getTime());
 
-                    System.out.println(tipoID);
-                    System.out.println(nroID);
-                    System.out.println(tipoCli);
+                // Obtener la fecha actual del sistema
+                Date fechaActual = new Date();
+                SimpleDateFormat formatoFechaActual = new SimpleDateFormat("dd/MM/yyyy");
+                String fechaIngresoStr = formatoFechaActual.format(fechaActual);
 
-                    SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
-                    Date fechaNacimiento = formatoFecha.parse(fechaNa);
-                    Timestamp fechaNaci = new Timestamp(fechaNacimiento.getTime());
+                // Convertir la fecha actual formateada a un objeto Timestamp
+                Timestamp fechaIngreso = new Timestamp(fechaActual.getTime());
 
-                    // Obtener la fecha actual del sistema
-                    Date fechaActual = new Date();
-                    SimpleDateFormat formatoFechaActual = new SimpleDateFormat("dd/MM/yyyy");
-                    String fechaIngresoStr = formatoFechaActual.format(fechaActual);
-
-                    // Convertir la fecha actual formateada a un objeto Timestamp
-                    Timestamp fechaIngreso = new Timestamp(fechaActual.getTime());
-
-                    // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
-                    ClienteParticular cliente = new ClienteParticular(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli,fechaNaci, prefProd, tipoCli, estadoActivo);
-                    metodosSQL.GuardarClienteParticular(cliente, tipoCliIndice);
-                    // Continuar con la lógica para guardar el cliente en la base de datos
-                } catch (ParseException ex) {
-                    System.out.println(ex);
-                } catch (SQLException ex) {
-                    Logger.getLogger(jPAgregarCliente.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                 break;
+                // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
+                ClienteParticular cliente = new ClienteParticular(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli, fechaNaci, prefProd, tipoCli, estadoActivo);
+                metodosSQL.GuardarClienteParticular(cliente, prefCli);
+                limpiarDatosCliente();
+            } catch (ParseException ex) {
+                System.out.println(ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(jPAgregarCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            break;
             default:
-               
+                limpiarDatosCliente();
         }
 
 
     }//GEN-LAST:event_btnAggCliActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        limpiarDatosCliente();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    //Limpiar variables
+    public void limpiarDatosCliente() {
         txtNroID.setText("");
         txtNomCli.setText("");
         txtApeCli.setText("");
@@ -399,13 +401,15 @@ public class jPAgregarCliente extends javax.swing.JPanel {
         txtNumCli.setText("");
         txtNroID.setText("");
         txtFechaNa.setText("");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+        jcbPrefCli.setSelectedIndex(0);
+        jcbTipoCli.setSelectedIndex(0);
+        jcbTipoID.setSelectedIndex(0);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDatos;
     private javax.swing.JButton btnAggCli;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

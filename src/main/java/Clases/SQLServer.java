@@ -23,7 +23,7 @@ public class SQLServer {
     static PreparedStatement preparedS;
     static PreparedStatement preparedS2;
 
-    public void GuardarClienteMayorista(ClienteMayorista cliente,  int prefClienteElegido) throws SQLException {
+    public void GuardarClienteMayorista(ClienteMayorista cliente, int prefClienteElegido) throws SQLException {
 
         CConexion objetoConexion = new CConexion();
 
@@ -87,11 +87,11 @@ public class SQLServer {
                 default:
                     throw new AssertionError();
             }
-            
+
             cs.execute();
             cs2.execute();
-            
-            JOptionPane.showMessageDialog(null, "Cliente particular registrado con éxito", "SIGCH", JOptionPane.INFORMATION_MESSAGE);
+
+            JOptionPane.showMessageDialog(null, "Cliente mayorista registrado con éxito", "SIGCH", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             System.err.println(e);
             JOptionPane.showMessageDialog(null, "Error al guardar cliente",
@@ -114,6 +114,7 @@ public class SQLServer {
         String sql2 = "INSERT INTO PREFERENCIAS_CLIENTE (ID_CATEGORIA,  ID_CLIENTE) VALUES(?, ?)";
         try {
             CallableStatement cs = objetoConexion.establecerConexion().prepareCall(sql);
+            CallableStatement cs2 = objetoConexion.establecerConexion().prepareCall(sql2);
             cs.setString(1, cliente.getNroID());
             cs.setString(2, cliente.getTipoID());
             cs.setString(3, cliente.getNombres());
@@ -126,9 +127,48 @@ public class SQLServer {
             cs.setBoolean(10, cliente.isEstadoCliente());
             cs.setString(11, cliente.getTipoCliente());
 
-            cs.execute();
+            switch (prefClienteElegido) {
+                case 0:
+                    cs2.setString(1, "1");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 1:
+                    cs2.setString(1, "2");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 2:
+                    cs2.setString(1, "3");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 3:
+                    cs2.setString(1, "4");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 4:
+                    cs2.setString(1, "5");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 5:
+                    cs2.setString(1, "6");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 6:
+                    cs2.setString(1, "7");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 7:
+                    cs2.setString(1, "8");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
 
-            JOptionPane.showMessageDialog(null, "Cliente registrado con éxito", "SIGCH", JOptionPane.INFORMATION_MESSAGE);
+                default:
+                    throw new AssertionError();
+            }
+
+            cs.execute();
+            cs2.execute();
+            
+            JOptionPane.showMessageDialog(null, "Cliente particular registrado con éxito", "SIGCH", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             System.err.println(e);
             JOptionPane.showMessageDialog(null, "Error al guardar cliente",
@@ -204,30 +244,46 @@ public class SQLServer {
         }
     }
 
-    public ClienteParticular obtenerClientePorCedula(String cedula) {
+    public ClienteMayorista obtenerClientePorCedula(String cedula) {
         CConexion objetoConexion = new CConexion();
-        ClienteParticular cliente = new ClienteParticular();
+        ClienteMayorista cliente = new ClienteMayorista();
 
-        String sql = "SELECT * FROM CLIENTES WHERE ID_CLIENTE = ?";
+        String sqlCliente = "SELECT * FROM CLIENTES WHERE ID_CLIENTE = ?";
+        String sqlCategorias = "SELECT CP.NOMBRE_CATEGORIA "
+                + "FROM CLIENTES C "
+                + "INNER JOIN PREFERENCIAS_CLIENTE PC ON C.ID_CLIENTE = PC.ID_CLIENTE "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS CP ON PC.ID_CATEGORIA = CP.ID_CATEGORIA "
+                + "WHERE C.ID_CLIENTE = ?";
+
         try {
-            PreparedStatement ps = objetoConexion.establecerConexion().prepareStatement(sql);
-            ps.setString(1, cedula);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                // Llena los datos del cliente con los valores obtenidos de la consulta
-                cliente.setNroID(rs.getString("ID_CLIENTE"));
-                cliente.setTipoID(rs.getString("TIPO_IDENTIFICACION"));
-                cliente.setNombres(rs.getString("NOMBRES_CLIENTE"));
-                cliente.setApellidos(rs.getString("APELLIDOS_CLIENTE"));
-                cliente.setDireccion(rs.getString("DIRECCION_CLIENTE"));
-                cliente.setTelf(rs.getString("TELEFONO_CLIENTE"));
-                cliente.setCorreo(rs.getString("CORREO_CLIENTE"));
-                cliente.setFecha(rs.getTimestamp("FECHA_NACIMIENTO_CLIENTE"));
-                cliente.setEstadoCliente(rs.getBoolean("ESTADO_CLIENTE"));
-                cliente.setTipoCliente(rs.getString("TIPO_CLIENTE"));
-                cliente.setPrefProd(rs.getString("SELECT "));
+            PreparedStatement psCliente = objetoConexion.establecerConexion().prepareStatement(sqlCliente);
+            psCliente.setString(1, cedula);
+            ResultSet rsCliente = psCliente.executeQuery();
+
+            if (rsCliente.next()) {
+                // Llena los datos del cliente con los valores obtenidos de la consulta principal
+                cliente.setNroID(rsCliente.getString("ID_CLIENTE"));
+                cliente.setTipoID(rsCliente.getString("TIPO_IDENTIFICACION"));
+                cliente.setNombres(rsCliente.getString("NOMBRES_CLIENTE"));
+                cliente.setApellidos(rsCliente.getString("APELLIDOS_CLIENTE"));
+                cliente.setDireccion(rsCliente.getString("DIRECCION_CLIENTE"));
+                cliente.setTelf(rsCliente.getString("TELEFONO_CLIENTE"));
+                cliente.setCorreo(rsCliente.getString("CORREO_CLIENTE"));
+                cliente.setFecha(rsCliente.getTimestamp("FECHA_NACIMIENTO_CLIENTE"));
+                cliente.setEstadoCliente(rsCliente.getBoolean("ESTADO_CLIENTE"));
+                cliente.setTipoCliente(rsCliente.getString("TIPO_CLIENTE"));
+
+                // Ahora, obtén la categoría de preferencia usando una segunda consulta
+                PreparedStatement psCategorias = objetoConexion.establecerConexion().prepareStatement(sqlCategorias);
+                psCategorias.setString(1, cedula);
+                ResultSet rsCategorias = psCategorias.executeQuery();
+
+                if (rsCategorias.next()) {
+                    cliente.setPrefProd(rsCategorias.getString(1)); // Asigna la categoría de preferencia
+                }
             }
         } catch (SQLException e) {
+            System.out.println(e);
             JOptionPane.showMessageDialog(null, "Error al obtener los datos del cliente");
         }
 
