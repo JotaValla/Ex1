@@ -17,11 +17,18 @@ public class jFBuscarProductoFactura extends javax.swing.JFrame {
      */
     String nombProd;
 
+    public String getNombProd() {
+        return nombProd;
+    }
+
+    public void setNombProd(String nombProd) {
+        this.nombProd = nombProd;
+    }
+
     public jFBuscarProductoFactura() {
         initComponents();
         SQLServer metodos = new SQLServer();
         metodos.mostrarProductos(jTable4);
-        nombProd = "";
     }
 
     /**
@@ -223,16 +230,17 @@ public class jFBuscarProductoFactura extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTable4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable4MouseClicked
-        int selectedRow = jTable1.getSelectedRow();
+        int selectedRow = jTable4.getSelectedRow();
         if (selectedRow >= 0) {
-            nombProd = jTable1.getValueAt(selectedRow, 1).toString();
+            nombProd = jTable4.getValueAt(selectedRow, 1).toString();
 
         }
     }//GEN-LAST:event_jTable4MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-//        this.setVisible(false);
+        jPCrearFactura factura = new jPCrearFactura();
+        factura.setTxtProdSelec(getNombProd());
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

@@ -1,22 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Interfaces;
 
-/**
- *
- * @author User
- */
-public class jFBuscarClienteFactura extends javax.swing.JFrame {
+import Clases.SQLServer;
 
-    /**
-     * Creates new form jFBuscarClienteFactura
-     */
+
+public class jFBuscarClienteFactura extends javax.swing.JFrame {
+    
     String nomCli;
+
+    public String getNomCli() {
+        return nomCli;
+    }
+
+    public void setNomCli(String nomCli) {
+        this.nomCli = nomCli;
+    }
 
     public jFBuscarClienteFactura() {
         initComponents();
+
+        SQLServer metodos = new SQLServer();
+        metodos.mostrarClientes(jtClientes);
     }
 
     /**
@@ -210,13 +214,15 @@ public class jFBuscarClienteFactura extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        jPCrearFactura factura = new jPCrearFactura();
+        factura.setTxtCliSeleccionado(getNomCli());
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
         int filaSeleccionada = jtClientes.getSelectedRow();
         if (filaSeleccionada >= 0) {
-            nomCli = jtClientes.getValueAt(filaSeleccionada, 1).toString();
+            setNomCli(jtClientes.getValueAt(filaSeleccionada, 1).toString());
         }
     }//GEN-LAST:event_jtClientesMouseClicked
 

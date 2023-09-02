@@ -16,6 +16,7 @@ public class LoginSGCH extends javax.swing.JFrame {
     MenuGeneral programaAdmin;
     MenuGeneralEmpleados programaEmp;
     //Instanciamos
+    int cont = 0;
 
     public LoginSGCH() {
         initComponents();
@@ -242,10 +243,14 @@ public class LoginSGCH extends javax.swing.JFrame {
         char[] passwordChars = passTxt.getPassword();
         String password = new String(passwordChars);
         String selectedRole = jComboBox1.getSelectedItem().toString(); // Obtener el rol seleccionado
-
+        cont +=1;
         Connection conx = null;
 
         try {
+            if (cont > 3) {
+                JOptionPane.showMessageDialog(null, "Sistema bloquedo, solicitar desbloqueo");
+                this.setVisible(false);
+            }
             CConexion objetoConexion = new CConexion();
             conx = objetoConexion.establecerConexion();
             String query = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasenia = ? AND rol = ?";
@@ -266,8 +271,10 @@ public class LoginSGCH extends javax.swing.JFrame {
                             programaEmp.setVisible(true);
                         }
                     } else {
-                        // Credenciales inválidas o rol incorrecto, mostrar mensaje de error
-                        JOptionPane.showMessageDialog(null, "Credenciales inválidas o rol incorrecto", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                        if (cont < 3) {
+                            JOptionPane.showMessageDialog(null, "Credenciales inválidas o rol incorrecto", "Error de inicio de sesión", JOptionPane.ERROR_MESSAGE);
+                        }
+                        
                     }
                 }
             }

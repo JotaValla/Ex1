@@ -92,7 +92,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
                 .addComponent(lblIconHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del cliente a agregar"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del cliente"));
 
         jLabel1.setText("Nombres:");
 
@@ -224,6 +224,11 @@ public class jPAgregarCliente extends javax.swing.JPanel {
         });
 
         jButton2.setText("Cancelar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -309,6 +314,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
                     String a = mayorista.nomLocal;
                     String b = mayorista.telfLocal;
                     String c = mayorista.dirLocal;
+                    int tipoCliIndice = jcbPrefCli.getSelectedIndex();
                     boolean estadoActivo = true;
 
                     System.out.println(tipoID);
@@ -328,7 +334,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
                     // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
                     ClienteMayorista cliente = new ClienteMayorista(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli, prefProd, tipoCli, a, b, c, fechaNaci,estadoActivo);
-                    metodosSQL.GuardarClienteMayorista(cliente);
+                    metodosSQL.GuardarClienteMayorista(cliente, tipoCliIndice);
                     // Continuar con la lógica para guardar el cliente en la base de datos
                 } catch (ParseException ex) {
                     System.out.println(ex);
@@ -348,10 +354,12 @@ public class jPAgregarCliente extends javax.swing.JPanel {
                     String fechaNa = txtFechaNa.getText();
                     String prefProd = jcbPrefCli.getSelectedItem().toString();
                     String tipoCli = jcbTipoCli.getSelectedItem().toString();
+                    int tipoCliIndice = jcbPrefCli.getSelectedIndex();
                     boolean estadoActivo = true;
 
                     System.out.println(tipoID);
                     System.out.println(nroID);
+                    System.out.println(tipoCli);
 
                     SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
                     Date fechaNacimiento = formatoFecha.parse(fechaNa);
@@ -367,7 +375,7 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
                     // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
                     ClienteParticular cliente = new ClienteParticular(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli,fechaNaci, prefProd, tipoCli, estadoActivo);
-                    metodosSQL.GuardarClienteParticular(cliente);
+                    metodosSQL.GuardarClienteParticular(cliente, tipoCliIndice);
                     // Continuar con la lógica para guardar el cliente en la base de datos
                 } catch (ParseException ex) {
                     System.out.println(ex);
@@ -381,6 +389,17 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
 
     }//GEN-LAST:event_btnAggCliActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        txtNroID.setText("");
+        txtNomCli.setText("");
+        txtApeCli.setText("");
+        txtDirCli.setText("");
+        txtCorrCli.setText("");
+        txtNumCli.setText("");
+        txtNroID.setText("");
+        txtFechaNa.setText("");
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

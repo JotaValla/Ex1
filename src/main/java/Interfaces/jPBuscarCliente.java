@@ -16,10 +16,11 @@ public class jPBuscarCliente extends javax.swing.JPanel {
     /**
      * Creates new form jPAgregarCliente
      */
+    SQLServer metodos;
 
     public jPBuscarCliente() {
         initComponents();
-        SQLServer metodos = new SQLServer();
+        metodos = new SQLServer();
         metodos.mostrarClientes(jtClientes);
     }
 
@@ -37,7 +38,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         lblIconHeader = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtCedulaABuscar = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -109,7 +110,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCedulaABuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -117,7 +118,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(54, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCedulaABuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(24, 24, 24))
         );
@@ -136,6 +137,11 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         jButton2.setText("Cancelar busqueda");
 
         jButton4.setText("Limpiar datos");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Exportar lista");
 
@@ -158,13 +164,13 @@ public class jPBuscarCliente extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton4))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton3)
+                    .addComponent(jButton2))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
 
@@ -327,7 +333,8 @@ public class jPBuscarCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_txtnomCliActionPerformed
 
     private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
-       int filaSeleccionada = jtClientes.getSelectedRow();
+        int filaSeleccionada = jtClientes.getSelectedRow();
+        int tipoClienteIndex;
         if (filaSeleccionada >= 0) {
             String nroCedulaSeleccionada = jtClientes.getValueAt(filaSeleccionada, 0).toString();
             SQLServer sqlServer = new SQLServer();
@@ -341,15 +348,30 @@ public class jPBuscarCliente extends javax.swing.JPanel {
             txtcorrCli.setText(clienteSeleccionado.getCorreo());
             txtNumCont.setText(clienteSeleccionado.getTelf());
             txtNumID.setText(clienteSeleccionado.getNroID());
-            jcbTipoCli.setSelectedItem(clienteSeleccionado.getTipoCliente());
+            
+            System.out.println(clienteSeleccionado.getTipoCliente());
+            
+            jcbTipoCli.setSelectedIndex(1);
             jcboPrefCli.setSelectedItem(clienteSeleccionado.getPrefProd());
             // Llena los otros campos con los valores correspondientes
         }
     }//GEN-LAST:event_jtClientesMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        metodos.mostrarClientesPorNroCedula(jtClientes, txtCedulaABuscar.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+       txtDirDomi.setText("");
+       txtFechNaCli.setText("");
+       txtNumCont.setText("");
+       txtNumID.setText("");
+       txtcorrCli.setText("");
+       txtnApCli.setText("");
+       txtnomCli.setText("");
+       txtCedulaABuscar.setText("");
+       metodos.mostrarClientes(jtClientes);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -372,13 +394,13 @@ public class jPBuscarCliente extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JComboBox<String> jcbTipoCli;
     private javax.swing.JComboBox<String> jcboPrefCli;
     private javax.swing.JTable jtClientes;
     private javax.swing.JLabel lblHeaderTitle;
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel panelHeader;
+    private javax.swing.JTextField txtCedulaABuscar;
     private javax.swing.JTextField txtDirDomi;
     private javax.swing.JTextField txtFechNaCli;
     private javax.swing.JTextField txtNumCont;
