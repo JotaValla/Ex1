@@ -205,7 +205,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         jLabel11.setText("Preferencia productos:");
 
         jcboPrefCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
-        jcboPrefCli.setEnabled(false);
+        jcboPrefCli.setFocusable(false);
 
         jLabel12.setText("Tipo cliente:");
 

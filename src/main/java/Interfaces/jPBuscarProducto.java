@@ -4,15 +4,17 @@ import Clases.Producto;
 import Clases.SQLServer;
 
 public class jPBuscarProducto extends javax.swing.JPanel {
-    
+
     SQLServer metodos;
-    
+    Producto producto;
+
     public jPBuscarProducto() {
         initComponents();
         metodos = new SQLServer();
+        producto = new Producto();
         metodos.mostrarProductos(jtProductos);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -190,6 +192,7 @@ public class jPBuscarProducto extends javax.swing.JPanel {
 
         jLabel1.setText("Nombre del producto:");
 
+        txtNomProd.setEditable(false);
         txtNomProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNomProdActionPerformed(evt);
@@ -198,23 +201,32 @@ public class jPBuscarProducto extends javax.swing.JPanel {
 
         jLabel2.setText("Descripción del producto:");
 
+        txtDescProd.setEditable(false);
+
         txtCodProd.setEditable(false);
-        txtCodProd.setEnabled(false);
-        txtCodProd.setOpaque(true);
 
         jLabel3.setText("Código del producto:");
 
         jLabel4.setText("Peso neto(g):");
 
+        txtPesoProd.setEditable(false);
+
         jLabel8.setText("Categoría del producto");
 
         jLabel9.setText("Cantidad en stock:");
 
+        txtPrecioProd.setEditable(false);
+
         jLabel10.setText("Precio $:");
 
-        jcbCatProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jcbCatProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
+        jcbCatProd.setEnabled(false);
 
         jLabel11.setText("Cantidad en cacao del producto %:");
+
+        jspContCacao.setEnabled(false);
+
+        jspCantProd.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -301,21 +313,23 @@ public class jPBuscarProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNomProdActionPerformed
 
     private void jtProductosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtProductosMouseClicked
-        int selectedRow = jtProductos.getSelectedRow();
-        if (selectedRow >= 0) {
-            String codigoProducto = jtProductos.getValueAt(selectedRow, 0).toString();
-            Producto producto = SQLServer.setearProducto(codigoProducto);
-            
-            if (producto != null) {
-                txtCodProd.setText(producto.getCodProducto());
-                txtNomProd.setText(producto.getNombreProducto());
-                txtDescProd.setText(producto.getDescripcionProducto());
-                txtPrecioProd.setText(producto.getPrecioUnit().toString());
-                txtPesoProd.setText(producto.getPesoNeto().toString());
-                jspCantProd.setValue(Integer.toString(producto.getCantStock()));
-                jspContCacao.setValue(producto.getContCacao().toString());
-                
-            }
+        int filaSeleccionada = jtProductos.getSelectedRow();
+
+        if (filaSeleccionada >= 0) {
+            String codigoProductoSeleccionado = jtProductos.getValueAt(filaSeleccionada, 0).toString();
+
+            // Llamar al método setearProducto para obtener los datos del producto
+            Producto productoSeleccionado = metodos.setearProducto(codigoProductoSeleccionado);
+
+            // Establecer los datos del producto en los campos de texto
+            txtCodProd.setText(productoSeleccionado.getCodProducto());
+            txtNomProd.setText(productoSeleccionado.getNombreProducto());
+            txtDescProd.setText(productoSeleccionado.getDescripcionProducto());
+            txtPrecioProd.setText(String.valueOf(productoSeleccionado.getPrecioUnit()));
+            txtPesoProd.setText(String.valueOf(productoSeleccionado.getPesoNeto()));
+            jcbCatProd.setSelectedItem(productoSeleccionado.getCatProd());
+            jspCantProd.setValue(productoSeleccionado.getCantStock());
+            jspContCacao.setValue(productoSeleccionado.getContCacao());
         }
     }//GEN-LAST:event_jtProductosMouseClicked
 
@@ -328,7 +342,7 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         limpiarDatosProducto();
         metodos.mostrarProductos(jtProductos);
     }//GEN-LAST:event_btnLimpiarActionPerformed
-    
+
     public void limpiarDatosProducto() {
         txtCodProd.setText("");
         txtCodProdBuscar.setText("");
@@ -338,6 +352,7 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         txtPrecioProd.setText("");
         jspCantProd.setValue(0);
         jspContCacao.setValue(0);
+        jcbCatProd.setSelectedIndex(0);
     }
 
 

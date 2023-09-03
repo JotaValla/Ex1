@@ -678,12 +678,9 @@ public class SQLServer {
         }
     }
 
-    public static Producto setearProducto(String codigoProducto) {
+    public Producto setearProducto(String codigoProducto) {
         CConexion objetoConexion = new CConexion();
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
         Producto producto = new Producto();
-        String categoria = "";
 
         String sql = "SELECT P.COD_PRODUCTO, P.NOMBRE_PRODUCTO, P.DESCRIPCION_PRODUCTO, "
                 + "P.PRECIO_UNIT, P.PESO_NETO, P.CANT_STOCK, P.CONT_CACAO, "
@@ -692,38 +689,45 @@ public class SQLServer {
                 + "INNER JOIN CAT_PROD CP ON P.COD_PRODUCTO = CP.COD_PRODUCTO "
                 + "INNER JOIN CATEGORIAS_PRODUCTOS C ON CP.ID_CATEGORIA = C.ID_CATEGORIA "
                 + "WHERE P.COD_PRODUCTO = ? AND ESTADO_PRODUCTO = 1";
-        String sql2 = "SELECT cp.NOMBRE_CATEGORIA from productos p inner join CAT_PROD c"
-                + "on p.COD_PRODUCTO = c.COD_PRODUCTO"
-                + "join CATEGORIAS_PRODUCTOS cp"
-                + "on c.ID_CATEGORIA = cp.ID_CATEGORIA WHERE COD_PROD = ? and p.ESTADO_PRODUCTO = 1;";
+
+        String sqlCategoria = "SELECT cp.NOMBRE_CATEGORIA FROM PRODUCTOS p "
+                + "INNER JOIN CAT_PROD c ON p.COD_PRODUCTO = c.COD_PRODUCTO "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS cp ON c.ID_CATEGORIA = cp.ID_CATEGORIA "
+                + "WHERE p.COD_PRODUCTO = ? AND p.ESTADO_PRODUCTO = 1";
 
         try {
-            PreparedStatement ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            Connection conn = objetoConexion.establecerConexion();
+
+            // Consulta para obtener los datos del producto
+            PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, codigoProducto);
-            resultSet = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
 
-            if (resultSet.next()) {
-                producto.setCodProducto(resultSet.getString("COD_PRODUCTO"));
-                producto.setNombreProducto(resultSet.getString("NOMBRE_PRODUCTO"));
-                producto.setDescripcionProducto(resultSet.getString("DESCRIPCION_PRODUCTO"));
-                producto.setPrecioUnit(resultSet.getDouble("PRECIO_UNIT"));
-                producto.setPesoNeto(resultSet.getDouble("PESO_NETO"));
-                producto.setCantStock(resultSet.getInt("CANT_STOCK"));
-                producto.setContCacao(resultSet.getDouble("CONT_CACAO"));
+            // Consulta para obtener la categoría del producto
+            PreparedStatement psCategoria = conn.prepareStatement(sqlCategoria);
+            psCategoria.setString(1, codigoProducto);
+            ResultSet rsCategoria = psCategoria.executeQuery();
 
-                PreparedStatement psCategorias = objetoConexion.establecerConexion().prepareStatement(sql2);
-                psCategorias.setString(1, codigoProducto);
-                ResultSet rsCategorias = psCategorias.executeQuery();
-
-                if (rsCategorias.next()) {
-                    producto.setCatProd(rsCategorias.getString(1)); // Asigna la categoría de preferencia
+            if (rs.next()) {
+                producto.setCodProducto(rs.getString("COD_PRODUCTO"));
+                producto.setNombreProducto(rs.getString("NOMBRE_PRODUCTO"));
+                producto.setDescripcionProducto(rs.getString("DESCRIPCION_PRODUCTO"));
+                producto.setPrecioUnit(rs.getDouble("PRECIO_UNIT"));
+                producto.setPesoNeto(rs.getDouble("PESO_NETO"));
+                producto.setCantStock(rs.getInt("CANT_STOCK"));
+                producto.setContCacao(rs.getDouble("CONT_CACAO"));
+                // Consulta y establece la categoría del producto
+                if (rsCategoria.next()) {
+                    producto.setCatProd(rsCategoria.getString("NOMBRE_CATEGORIA"));
                 }
             }
+
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e);
-            JOptionPane.showMessageDialog(null, "Error al obtener los datos del producto");
+            e.printStackTrace();
         }
-
+        System.out.println(producto.getCatProd());
         return producto;
     }
 
@@ -756,17 +760,23 @@ public class SQLServer {
             ps.setString(1, codProd);
             ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
+            if (!rs.next()) {
+                JOptionPane.showMessageDialog(null, "No se encontró el producto", "Error", JOptionPane.ERROR_MESSAGE);
+                return; // No se encontró el producto, por lo que no se agrega ninguna fila
+            }
+
+            do {
                 datos[0] = rs.getString(1);
                 datos[1] = rs.getString(2);
                 datos[2] = rs.getString(3);
                 datos[3] = rs.getString(4);
                 datos[4] = rs.getString(5);
                 modelo.addRow(datos);
-            }
+            } while (rs.next());
+
             tablaProductos.setModel(modelo);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se mostraron los registros");
+            JOptionPane.showMessageDialog(null, "Error al obtener el producto", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
