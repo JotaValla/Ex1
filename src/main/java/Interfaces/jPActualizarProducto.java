@@ -2,6 +2,7 @@ package Interfaces;
 
 import Clases.Producto;
 import Clases.SQLServer;
+import javax.swing.JOptionPane;
 
 public class jPActualizarProducto extends javax.swing.JPanel {
 
@@ -182,10 +183,16 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         jLabel10.setText("Precio $:");
 
         jcbCatProd.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
+        jcbCatProd.setEnabled(false);
 
         jLabel11.setText("Cantidad en cacao del producto %:");
 
         btnActualizar.setText("Actualizar datos del producto");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -344,6 +351,36 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         limpiarDatosProducto();
         metodos.mostrarProductos(jtProductos);
     }//GEN-LAST:event_btnLimpiarDatosActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // Obtener los datos de los campos de texto
+        String codProducto = txtCodProd.getText();
+        String nombreProducto = txtNomProd.getText();
+        String descripcionProducto = txtDescProd.getText();
+        double precioUnit = Double.parseDouble(txtPrecioProd.getText());
+        double pesoNeto = Double.parseDouble(txtPesoProd.getText());
+        String categoriaProducto = jcbCatProd.getSelectedItem().toString();
+        double contCacao = Double.parseDouble(jspCantCacao.getValue().toString());
+        int cantStock = Integer.parseInt(jspCantStock.getValue().toString());
+
+        // Crear un objeto Producto con los datos
+        Producto productoActualizado = new Producto(
+                codProducto, nombreProducto, descripcionProducto, categoriaProducto,
+                precioUnit, pesoNeto, cantStock, contCacao, true, true
+        );
+
+        // Llamar al método en SQLServer para actualizar el producto
+        boolean actualizado = metodos.actualizarProducto(productoActualizado);
+
+        if (actualizado) {
+            JOptionPane.showMessageDialog(null, "Producto actualizado con éxito", "SIGCH", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Error al actualizar producto", "SIGCH", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // Actualizar la tabla de productos
+        metodos.mostrarProductos(jtProductos);
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     public void limpiarDatosProducto() {
         txtCodProd.setText("");

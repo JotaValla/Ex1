@@ -780,4 +780,39 @@ public class SQLServer {
         }
     }
 
+    public boolean actualizarProducto(Producto producto) {
+        CConexion objetoConexion = new CConexion();
+
+        String sql = "UPDATE PRODUCTOS SET "
+                + "NOMBRE_PRODUCTO=?, "
+                + "DESCRIPCION_PRODUCTO=?, "
+                + "PRECIO_UNIT=?, "
+                + "PESO_NETO=?, "
+                + "CANT_STOCK=?, "
+                + "CONT_CACAO=? "
+                + "WHERE COD_PRODUCTO=? AND ESTADO_PRODUCTO = 1";
+
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            // Establecer los parámetros para la actualización del producto
+            ps.setString(1, producto.getNombreProducto());
+            ps.setString(2, producto.getDescripcionProducto());
+            ps.setDouble(3, producto.getPrecioUnit());
+            ps.setDouble(4, producto.getPesoNeto());
+            ps.setInt(5, producto.getCantStock());
+            ps.setDouble(6, producto.getContCacao());
+            ps.setString(7, producto.getCodProducto());
+
+            int filasActualizadas = ps.executeUpdate();
+            conn.close();
+
+            return filasActualizadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 }
