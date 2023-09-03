@@ -3,6 +3,8 @@ package Clases;
 import ConexionBD.CConexion;
 import ConexionBD.ConexionSQLServer;
 import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -167,7 +169,7 @@ public class SQLServer {
 
             cs.execute();
             cs2.execute();
-            
+
             JOptionPane.showMessageDialog(null, "Cliente particular registrado con éxito", "SIGCH", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             System.err.println(e);
@@ -190,8 +192,8 @@ public class SQLServer {
         modelo.addColumn("Apellidos");
 
         paramTablaClientes.setModel(modelo);
-        sql = "select  id_cliente, nombres_cliente, apellidos_cliente from clientes";
-        String[] datos = new String[3];
+        sql = "select  id_cliente, nombres_cliente, apellidos_cliente from clientes where estado_cliente = 1";
+        String[] datos = new String[4];
         Statement st;
 
         try {
@@ -210,6 +212,72 @@ public class SQLServer {
         }
     }
 
+    public void mostrarClientesActivos(JTable paramTablaClientes) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Número de cédula");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("Apellidos");
+        modelo.addColumn("Estado");
+
+        paramTablaClientes.setModel(modelo);
+        sql = "select  id_cliente, nombres_cliente, apellidos_cliente, estado_cliente from clientes where estado_cliente = 1";
+        String[] datos = new String[4];
+        Statement st;
+
+        try {
+            st = objetoConexion.establecerConexion().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = String.valueOf(rs.getString(4));
+                modelo.addRow(datos);
+            }
+            paramTablaClientes.setModel(modelo);
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "No se mostraron los registros");
+        }
+    }
+
+    public void mostrarClientesInactivos(JTable paramTablaClientes) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Número de cédula");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("Apellidos");
+        modelo.addColumn("Estado");
+
+        paramTablaClientes.setModel(modelo);
+        sql = "select  id_cliente, nombres_cliente, apellidos_cliente,  estado_cliente from clientes where estado_cliente = 0";
+        String[] datos = new String[4];
+        Statement st;
+
+        try {
+            st = objetoConexion.establecerConexion().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = String.valueOf(rs.getString(4));
+                modelo.addRow(datos);
+            }
+            paramTablaClientes.setModel(modelo);
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "No se mostraron los registros");
+        }
+    }
+
     public void mostrarClientesPorNroCedula(JTable paramTablaClientes, String idCliente) {
         CConexion objetoConexion = new CConexion();
         DefaultTableModel modelo = new DefaultTableModel();
@@ -222,7 +290,7 @@ public class SQLServer {
         paramTablaClientes.setModel(modelo);
 
         // Modificar la consulta SQL para buscar por id_cliente
-        sql = "SELECT id_cliente, nombres_cliente, apellidos_cliente FROM clientes WHERE id_cliente = ?";
+        sql = "SELECT id_cliente, nombres_cliente, apellidos_cliente FROM clientes WHERE id_cliente = ? AND ESTADO_CLIENTE = 1";
 
         String[] datos = new String[3];
         PreparedStatement ps;
@@ -244,16 +312,54 @@ public class SQLServer {
         }
     }
 
+    public void mostrarClienteACambiarEstado(JTable tablaClientesActivos, JTable tablaClientesInactivos, String idCliente) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Número de cédula");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("Apellidos");
+        modelo.addColumn("Estado");
+
+        if (buscarClienteEnTabla(tablaClientesActivos, modelo, idCliente)) {
+            // Se encontró en la tabla de activos
+            tablaClientesActivos.setModel(modelo);
+        } else if (buscarClienteEnTabla(tablaClientesInactivos, modelo, idCliente)) {
+            // Se encontró en la tabla de inactivos
+            tablaClientesInactivos.setModel(modelo);
+        } else {
+            // No se encontró en ninguna tabla
+            JOptionPane.showMessageDialog(null, "Cliente no encontrado en ninguna tabla");
+        }
+    }
+
+    private boolean buscarClienteEnTabla(JTable tabla, DefaultTableModel modelo, String idCliente) {
+        String[] datos = new String[4];
+
+        for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+            String idEnTabla = tabla.getValueAt(fila, 0).toString();
+            if (idEnTabla.equals(idCliente)) {
+                // Encontrado en la tabla, agregar a modelo
+                datos[0] = idEnTabla;
+                datos[1] = tabla.getValueAt(fila, 1).toString();
+                datos[2] = tabla.getValueAt(fila, 2).toString();
+                datos[3] = tabla.getValueAt(fila, 3).toString();
+                modelo.addRow(datos);
+                return true;
+            }
+        }
+
+        return false; // No se encontró en la tabla
+    }
+
     public ClienteMayorista obtenerClientePorCedula(String cedula) {
         CConexion objetoConexion = new CConexion();
         ClienteMayorista cliente = new ClienteMayorista();
 
-        String sqlCliente = "SELECT * FROM CLIENTES WHERE ID_CLIENTE = ?";
+        String sqlCliente = "SELECT * FROM CLIENTES WHERE ID_CLIENTE = ? AND ESTADO_CLIENTE = 1";
         String sqlCategorias = "SELECT CP.NOMBRE_CATEGORIA "
                 + "FROM CLIENTES C "
                 + "INNER JOIN PREFERENCIAS_CLIENTE PC ON C.ID_CLIENTE = PC.ID_CLIENTE "
                 + "INNER JOIN CATEGORIAS_PRODUCTOS CP ON PC.ID_CATEGORIA = CP.ID_CATEGORIA "
-                + "WHERE C.ID_CLIENTE = ?";
+                + "WHERE C.ID_CLIENTE = ? AND ESTADO_CLIENTE = 1";
 
         try {
             PreparedStatement psCliente = objetoConexion.establecerConexion().prepareStatement(sqlCliente);
@@ -272,6 +378,9 @@ public class SQLServer {
                 cliente.setFecha(rsCliente.getTimestamp("FECHA_NACIMIENTO_CLIENTE"));
                 cliente.setEstadoCliente(rsCliente.getBoolean("ESTADO_CLIENTE"));
                 cliente.setTipoCliente(rsCliente.getString("TIPO_CLIENTE"));
+                cliente.setNomLocal(rsCliente.getString("NOMBRE_LOCAL"));
+                cliente.setTelfLocal(rsCliente.getString("TELEFONO_ADICIONAL"));
+                cliente.setDirLocal(rsCliente.getString("DIRECCION_LOCAL"));
 
                 // Ahora, obtén la categoría de preferencia usando una segunda consulta
                 PreparedStatement psCategorias = objetoConexion.establecerConexion().prepareStatement(sqlCategorias);
@@ -290,6 +399,178 @@ public class SQLServer {
         return cliente;
     }
 
+    public ClienteMayorista obtenerClientePorCedula2(String cedula) {
+        CConexion objetoConexion = new CConexion();
+        ClienteMayorista cliente = new ClienteMayorista();
+
+        String sqlCliente = "SELECT * FROM CLIENTES WHERE ID_CLIENTE = ?";
+        String sqlCategorias = "SELECT CP.NOMBRE_CATEGORIA "
+                + "FROM CLIENTES C "
+                + "INNER JOIN PREFERENCIAS_CLIENTE PC ON C.ID_CLIENTE = PC.ID_CLIENTE "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS CP ON PC.ID_CATEGORIA = CP.ID_CATEGORIA "
+                + "WHERE C.ID_CLIENTE = ? AND ESTADO_CLIENTE = 1";
+
+        try {
+            PreparedStatement psCliente = objetoConexion.establecerConexion().prepareStatement(sqlCliente);
+            psCliente.setString(1, cedula);
+            ResultSet rsCliente = psCliente.executeQuery();
+
+            if (rsCliente.next()) {
+                // Llena los datos del cliente con los valores obtenidos de la consulta principal
+                cliente.setNroID(rsCliente.getString("ID_CLIENTE"));
+                cliente.setTipoID(rsCliente.getString("TIPO_IDENTIFICACION"));
+                cliente.setNombres(rsCliente.getString("NOMBRES_CLIENTE"));
+                cliente.setApellidos(rsCliente.getString("APELLIDOS_CLIENTE"));
+                cliente.setDireccion(rsCliente.getString("DIRECCION_CLIENTE"));
+                cliente.setTelf(rsCliente.getString("TELEFONO_CLIENTE"));
+                cliente.setCorreo(rsCliente.getString("CORREO_CLIENTE"));
+                cliente.setFecha(rsCliente.getTimestamp("FECHA_NACIMIENTO_CLIENTE"));
+                cliente.setEstadoCliente(rsCliente.getBoolean("ESTADO_CLIENTE"));
+                cliente.setTipoCliente(rsCliente.getString("TIPO_CLIENTE"));
+                cliente.setNomLocal(rsCliente.getString("NOMBRE_LOCAL"));
+                cliente.setTelfLocal(rsCliente.getString("TELEFONO_ADICIONAL"));
+                cliente.setDirLocal(rsCliente.getString("DIRECCION_LOCAL"));
+
+                // Ahora, obtén la categoría de preferencia usando una segunda consulta
+                PreparedStatement psCategorias = objetoConexion.establecerConexion().prepareStatement(sqlCategorias);
+                psCategorias.setString(1, cedula);
+                ResultSet rsCategorias = psCategorias.executeQuery();
+
+                if (rsCategorias.next()) {
+                    cliente.setPrefProd(rsCategorias.getString(1)); // Asigna la categoría de preferencia
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del cliente");
+        }
+
+        return cliente;
+    }
+    
+    public boolean actualizarCliente(ClienteMayorista cliente, int prefClienteElegido) {
+        CConexion objetoConexion = new CConexion();
+
+        String sql = "UPDATE CLIENTES SET "
+                + "DIRECCION_CLIENTE=?, "
+                + "CORREO_CLIENTE=?, "
+                + "TELEFONO_CLIENTE=?, "
+                + "TIPO_CLIENTE=?, "
+                + "NOMBRE_LOCAL=?, "
+                + "TELEFONO_ADICIONAL=?, "
+                + "DIRECCION_LOCAL=? "
+                + "WHERE ID_CLIENTE=?";
+
+        String sql2 = "UPDATE PREFERENCIAS_CLIENTE SET "
+                + "ID_CATEGORIA=? "
+                + "WHERE ID_CLIENTE=?";
+
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement cs = conn.prepareStatement(sql);
+            PreparedStatement cs2 = conn.prepareStatement(sql2);
+
+            // Establecer los parámetros para la actualización del cliente
+            cs.setString(1, cliente.getDireccion());
+            cs.setString(2, cliente.getCorreo());
+            cs.setString(3, cliente.getTelf());
+            cs.setString(4, cliente.getTipoCliente());
+            cs.setString(5, cliente.getNomLocal());
+            cs.setString(6, cliente.getTelfLocal());
+            cs.setString(7, cliente.getDirLocal());
+            cs.setString(8, cliente.getNroID());
+
+            switch (prefClienteElegido) {
+                case 0:
+                    cs2.setString(1, "1");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 1:
+                    cs2.setString(1, "2");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 2:
+                    cs2.setString(1, "3");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 3:
+                    cs2.setString(1, "4");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 4:
+                    cs2.setString(1, "5");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 5:
+                    cs2.setString(1, "6");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 6:
+                    cs2.setString(1, "7");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+                case 7:
+                    cs2.setString(1, "8");
+                    cs2.setString(2, cliente.getNroID());
+                    break;
+
+                default:
+                    throw new AssertionError();
+            }
+
+            int filasActualizadas1 = cs.executeUpdate();
+            int filasActualizadas2 = cs2.executeUpdate();
+
+            conn.close();
+
+            return (filasActualizadas1 > 0) && (filasActualizadas2 > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean cambiarEstadoCliente(ClienteMayorista cliente, boolean estadoCliente) {
+        CConexion objetoConexion = new CConexion();
+
+        String sql = "UPDATE CLIENTES SET "
+                + "ESTADO_CLIENTE=? "
+                + "WHERE ID_CLIENTE=?";
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement cs = conn.prepareStatement(sql);
+            // Establecer los parámetros para la actualización del cliente
+            cs.setBoolean(1, cliente.isEstadoCliente());
+            cs.setString(2, cliente.getNroID());
+            int filasActualizadas1 = cs.executeUpdate();
+            conn.close();
+            return (filasActualizadas1 > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+        public boolean cambiarEstadoClienteActivo(ClienteMayorista cliente) {
+        CConexion objetoConexion = new CConexion();
+
+        String sql = "UPDATE CLIENTES SET "
+                + "ESTADO_CLIENTE=1 "
+                + "WHERE ID_CLIENTE=?";
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement cs = conn.prepareStatement(sql);
+            // Establecer los parámetros para la actualización del cliente
+            cs.setString(1, cliente.getNroID());
+            int filasActualizadas1 = cs.executeUpdate();
+            conn.close();
+            return (filasActualizadas1 > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
     public void guardarProducto(Producto producto, int catprodElegido) {
         CConexion objetoConexion = new CConexion();
 

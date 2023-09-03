@@ -7,9 +7,13 @@ import Clases.SQLServer;
 public class jPBuscarCliente extends javax.swing.JPanel {
 
     SQLServer metodos;
+    jFAgregarClienteMayorista mayorista;
+    ClienteMayorista clienteSeleccionado;
 
     public jPBuscarCliente() {
         initComponents();
+        mayorista = new jFAgregarClienteMayorista();
+        btnMostrarDatosMayorista.setVisible(false);
         metodos = new SQLServer();
         metodos.mostrarClientes(jtClientes);
     }
@@ -50,6 +54,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         jcboPrefCli = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jcbTipoCli = new javax.swing.JComboBox<>();
+        btnMostrarDatosMayorista = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -83,33 +88,16 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         add(panelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 739, -1));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda del cliente"));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("Ingrese el número de cédula del cliente a buscar:");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jPanel4.add(txtCedulaABuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, 170, -1));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(txtCedulaABuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCedulaABuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(24, 24, 24))
-        );
-
-        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 610, 100));
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 490, 90));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnBuscarClienteEspecifico.setText("Buscar cliente");
         btnBuscarClienteEspecifico.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +105,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                 btnBuscarClienteEspecificoActionPerformed(evt);
             }
         });
+        jPanel3.add(btnBuscarClienteEspecifico, new org.netbeans.lib.awtextra.AbsoluteConstraints(25, 24, 113, -1));
 
         btnLimpiarDatos.setText("Limpiar datos");
         btnLimpiarDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -124,35 +113,12 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                 btnLimpiarDatosActionPerformed(evt);
             }
         });
+        jPanel3.add(btnLimpiarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 24, 113, -1));
 
         jButton3.setText("Exportar lista");
+        jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(342, 24, 113, -1));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnLimpiarDatos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscarClienteEspecifico, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)))
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnBuscarClienteEspecifico)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnLimpiarDatos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(18, 18, 18))
-        );
-
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 370, 100));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 140, 490, 70));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla clientes"));
 
@@ -166,7 +132,15 @@ public class jPBuscarCliente extends javax.swing.JPanel {
             new String [] {
                 "Número de cédula", "Nombres", "Apellidos"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jtClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jtClientesMouseClicked(evt);
@@ -185,9 +159,9 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 168, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -197,6 +171,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
 
         jLabel1.setText("Nombres:");
 
+        txtnomCli.setEditable(false);
         txtnomCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtnomCliActionPerformed(evt);
@@ -205,23 +180,44 @@ public class jPBuscarCliente extends javax.swing.JPanel {
 
         jLabel2.setText("Apellidos:");
 
+        txtnApCli.setEditable(false);
+
+        txtNumID.setEditable(false);
+
         jLabel3.setText("Número de identificación:");
 
         jLabel4.setText("Número de contacto:");
 
+        txtNumCont.setEditable(false);
+
         jLabel8.setText("Fecha de nacimiento:");
 
+        txtFechNaCli.setEditable(false);
+
+        txtDirDomi.setEditable(false);
+
         jLabel9.setText("Dirección de domicilio:");
+
+        txtcorrCli.setEditable(false);
 
         jLabel10.setText("Correo electrónico:");
 
         jLabel11.setText("Preferencia productos:");
 
         jcboPrefCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
+        jcboPrefCli.setEnabled(false);
 
         jLabel12.setText("Tipo cliente:");
 
         jcbTipoCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mayorista", "Particular" }));
+        jcbTipoCli.setEnabled(false);
+
+        btnMostrarDatosMayorista.setText("Mostrar datos de mayorista");
+        btnMostrarDatosMayorista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMostrarDatosMayoristaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -259,9 +255,12 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtDirDomi, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
-                        .addComponent(jcbTipoCli, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(4, 4, 4)
+                                .addComponent(jcbTipoCli, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnMostrarDatosMayorista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -300,10 +299,12 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                     .addComponent(jcboPrefCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(jcbTipoCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnMostrarDatosMayorista)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 990, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 990, 250));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtnomCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomCliActionPerformed
@@ -316,7 +317,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         if (filaSeleccionada >= 0) {
             String nroCedulaSeleccionada = jtClientes.getValueAt(filaSeleccionada, 0).toString();
             SQLServer sqlServer = new SQLServer();
-            ClienteMayorista clienteSeleccionado = sqlServer.obtenerClientePorCedula(nroCedulaSeleccionada);
+            clienteSeleccionado = sqlServer.obtenerClientePorCedula(nroCedulaSeleccionada);
 
             // Llena los campos con los datos del cliente obtenidos
             txtnomCli.setText(clienteSeleccionado.getNombres());
@@ -328,25 +329,40 @@ public class jPBuscarCliente extends javax.swing.JPanel {
             txtNumID.setText(clienteSeleccionado.getNroID());
             if (clienteSeleccionado.getTipoCliente().equals("Mayorista")) {
                 tipoClienteIndice = 0;
+                btnMostrarDatosMayorista.setVisible(true);
+
             } else {
                 tipoClienteIndice = 1;
+                btnMostrarDatosMayorista.setVisible(false);
             }
             System.out.println(clienteSeleccionado.getTipoCliente());
 
             jcbTipoCli.setSelectedIndex(tipoClienteIndice);
             jcboPrefCli.setSelectedItem(clienteSeleccionado.getPrefProd());
-            // Llena los otros campos con los valores correspondientes
         }
     }//GEN-LAST:event_jtClientesMouseClicked
 
     private void btnBuscarClienteEspecificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteEspecificoActionPerformed
         metodos.mostrarClientesPorNroCedula(jtClientes, txtCedulaABuscar.getText());
+        limpiarDatosCliente();
     }//GEN-LAST:event_btnBuscarClienteEspecificoActionPerformed
 
     private void btnLimpiarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarDatosActionPerformed
         limpiarDatosCliente();
+        btnMostrarDatosMayorista.setVisible(false);
         metodos.mostrarClientes(jtClientes);
     }//GEN-LAST:event_btnLimpiarDatosActionPerformed
+
+    private void btnMostrarDatosMayoristaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarDatosMayoristaActionPerformed
+        mayorista.setVisible(true);
+        mayorista.getTxtDirLocal().setEditable(false);
+        mayorista.getTxtTelfLocal().setEditable(false);
+        mayorista.getTxtnomLocal().setEditable(false);
+        mayorista.getBtnCancelar().setVisible(false);
+        mayorista.setTxtnomLocal(clienteSeleccionado.getNomLocal());
+        mayorista.setTxtTelfLocal(clienteSeleccionado.getTelfLocal());
+        mayorista.setTxtDirLocal(clienteSeleccionado.getDirLocal());
+    }//GEN-LAST:event_btnMostrarDatosMayoristaActionPerformed
     public void limpiarDatosCliente() {
         txtNumID.setText("");
         txtnomCli.setText("");
@@ -363,6 +379,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarClienteEspecifico;
     private javax.swing.JButton btnLimpiarDatos;
+    private javax.swing.JButton btnMostrarDatosMayorista;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
