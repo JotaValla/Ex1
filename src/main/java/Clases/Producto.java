@@ -12,7 +12,7 @@ public class Producto {
 
     private String codProducto;
     private String nombreProducto;
-    private String descripcionProducto;
+    private String descripcionProducto, catProd;
     private Double precioUnit;
     private Double pesoNeto;
     private int cantStock;
@@ -25,10 +25,11 @@ public class Producto {
 
     
     
-    public Producto(String codProducto, String nombreProducto, String descripcionProducto, Double precioUnit, Double pesoNeto, int cantStock, Double contCacao, boolean estadoStock, boolean estadoProducto) {
+    public Producto(String codProducto, String nombreProducto, String descripcionProducto,String catProd, Double precioUnit, Double pesoNeto, int cantStock, Double contCacao, boolean estadoStock, boolean estadoProducto) {
         this.codProducto = codProducto;
         this.nombreProducto = nombreProducto;
         this.descripcionProducto = descripcionProducto;
+        this.catProd = catProd;
         this.precioUnit = precioUnit;
         this.pesoNeto = pesoNeto;
         this.cantStock = cantStock;
@@ -37,6 +38,16 @@ public class Producto {
         this.estadoProducto = true;
     }
 
+    public String getCatProd() {
+        return catProd;
+    }
+
+    public void setCatProd(String catProd) {
+        this.catProd = catProd;
+    }
+
+    
+    
     public Double getPesoNeto() {
         return pesoNeto;
     }

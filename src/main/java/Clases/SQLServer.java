@@ -350,7 +350,7 @@ public class SQLServer {
         return false; // No se encontró en la tabla
     }
 
-    public ClienteMayorista obtenerClientePorCedula(String cedula) {
+    public ClienteMayorista setearDatosCliente(String cedula) {
         CConexion objetoConexion = new CConexion();
         ClienteMayorista cliente = new ClienteMayorista();
 
@@ -447,7 +447,7 @@ public class SQLServer {
 
         return cliente;
     }
-    
+
     public boolean actualizarCliente(ClienteMayorista cliente, int prefClienteElegido) {
         CConexion objetoConexion = new CConexion();
 
@@ -551,7 +551,7 @@ public class SQLServer {
         }
     }
 
-        public boolean cambiarEstadoClienteActivo(ClienteMayorista cliente) {
+    public boolean cambiarEstadoClienteActivo(ClienteMayorista cliente) {
         CConexion objetoConexion = new CConexion();
 
         String sql = "UPDATE CLIENTES SET "
@@ -570,7 +570,7 @@ public class SQLServer {
             return false;
         }
     }
-    
+
     public void guardarProducto(Producto producto, int catprodElegido) {
         CConexion objetoConexion = new CConexion();
 
@@ -654,7 +654,9 @@ public class SQLServer {
         modelo.addColumn("Categoria");
 
         paramTablaClientes.setModel(modelo);
-        sql = "SELECT p.cod_producto, p.nombre_producto, p.precio_unit, p.cant_stock, cp.NOMBRE_CATEGORIA from productos p INNER JOIN cat_prod c ON p.cod_producto = c.cod_producto JOIN CATEGORIAS_PRODUCTOS cp ON c.ID_CATEGORIA = cp.ID_CATEGORIA; ; ";
+        sql = "SELECT p.cod_producto, p.nombre_producto, p.precio_unit, p.cant_stock, cp.NOMBRE_CATEGORIA "
+                + "from productos p INNER JOIN cat_prod c ON p.cod_producto = c.cod_producto JOIN CATEGORIAS_PRODUCTOS cp "
+                + "ON c.ID_CATEGORIA = cp.ID_CATEGORIA WHERE ESTADO_PRODUCTO = 1";
         String[] datos = new String[5];
         Statement st;
 
@@ -676,24 +678,29 @@ public class SQLServer {
         }
     }
 
-    public static Producto obtenerProductoPorCodigo(String codigoProducto) {
+    public static Producto setearProducto(String codigoProducto) {
         CConexion objetoConexion = new CConexion();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         Producto producto = new Producto();
         String categoria = "";
-        try {
 
-            String query = "SELECT P.COD_PRODUCTO, P.NOMBRE_PRODUCTO, P.DESCRIPCION_PRODUCTO, "
-                    + "P.PRECIO_UNIT, P.PESO_NETO, P.CANT_STOCK, P.CONT_CACAO, "
-                    + "C.NOMBRE_CATEGORIA "
-                    + "FROM PRODUCTOS P "
-                    + "INNER JOIN CAT_PROD CP ON P.COD_PRODUCTO = CP.COD_PRODUCTO "
-                    + "INNER JOIN CATEGORIAS_PRODUCTOS C ON CP.ID_CATEGORIA = C.ID_CATEGORIA "
-                    + "WHERE P.COD_PRODUCTO = ?";
-            PreparedStatement ps = objetoConexion.establecerConexion().prepareStatement(query);
-            preparedStatement.setString(1, codigoProducto);
-            resultSet = preparedStatement.executeQuery();
+        String sql = "SELECT P.COD_PRODUCTO, P.NOMBRE_PRODUCTO, P.DESCRIPCION_PRODUCTO, "
+                + "P.PRECIO_UNIT, P.PESO_NETO, P.CANT_STOCK, P.CONT_CACAO, "
+                + "C.NOMBRE_CATEGORIA "
+                + "FROM PRODUCTOS P "
+                + "INNER JOIN CAT_PROD CP ON P.COD_PRODUCTO = CP.COD_PRODUCTO "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS C ON CP.ID_CATEGORIA = C.ID_CATEGORIA "
+                + "WHERE P.COD_PRODUCTO = ? AND ESTADO_PRODUCTO = 1";
+        String sql2 = "SELECT cp.NOMBRE_CATEGORIA from productos p inner join CAT_PROD c"
+                + "on p.COD_PRODUCTO = c.COD_PRODUCTO"
+                + "join CATEGORIAS_PRODUCTOS cp"
+                + "on c.ID_CATEGORIA = cp.ID_CATEGORIA WHERE COD_PROD = ? and p.ESTADO_PRODUCTO = 1;";
+
+        try {
+            PreparedStatement ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, codigoProducto);
+            resultSet = ps.executeQuery();
 
             if (resultSet.next()) {
                 producto.setCodProducto(resultSet.getString("COD_PRODUCTO"));
@@ -703,14 +710,64 @@ public class SQLServer {
                 producto.setPesoNeto(resultSet.getDouble("PESO_NETO"));
                 producto.setCantStock(resultSet.getInt("CANT_STOCK"));
                 producto.setContCacao(resultSet.getDouble("CONT_CACAO"));
-                categoria = resultSet.getString("NOMBRE_CATEGORIA");
-                return producto;
+
+                PreparedStatement psCategorias = objetoConexion.establecerConexion().prepareStatement(sql2);
+                psCategorias.setString(1, codigoProducto);
+                ResultSet rsCategorias = psCategorias.executeQuery();
+
+                if (rsCategorias.next()) {
+                    producto.setCatProd(rsCategorias.getString(1)); // Asigna la categoría de preferencia
+                }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error al obtener los datos del producto");
         }
 
-        return null;
+        return producto;
+    }
+
+    public void mostrarProductoBuscado(JTable tablaProductos, String codProd) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Código del producto");
+        modelo.addColumn("Nombre del producto");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Cantidad en stock");
+        modelo.addColumn("Categoría");
+
+        tablaProductos.setModel(modelo);
+
+        sql = "SELECT P.COD_PRODUCTO, P.NOMBRE_PRODUCTO, "
+                + "P.PRECIO_UNIT, P.CANT_STOCK, "
+                + "C.NOMBRE_CATEGORIA "
+                + "FROM PRODUCTOS P "
+                + "INNER JOIN CAT_PROD CP ON P.COD_PRODUCTO = CP.COD_PRODUCTO "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS C ON CP.ID_CATEGORIA = C.ID_CATEGORIA "
+                + "WHERE P.COD_PRODUCTO = ? AND ESTADO_PRODUCTO = 1";
+
+        String[] datos = new String[5];
+        PreparedStatement ps;
+
+        try {
+            ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, codProd);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
+            }
+            tablaProductos.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se mostraron los registros");
+        }
     }
 
 }

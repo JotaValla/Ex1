@@ -317,7 +317,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         if (filaSeleccionada >= 0) {
             String nroCedulaSeleccionada = jtClientes.getValueAt(filaSeleccionada, 0).toString();
             SQLServer sqlServer = new SQLServer();
-            clienteSeleccionado = sqlServer.obtenerClientePorCedula(nroCedulaSeleccionada);
+            clienteSeleccionado = sqlServer.setearDatosCliente(nroCedulaSeleccionada);
 
             // Llena los campos con los datos del cliente obtenidos
             txtnomCli.setText(clienteSeleccionado.getNombres());

@@ -245,7 +245,7 @@ public class jPEliminarCliente extends javax.swing.JPanel {
         if (filaSeleccionada >= 0) {
             String nroCedulaSeleccionada = jtbClientesActivos.getValueAt(filaSeleccionada, 0).toString();
             SQLServer sqlServer = new SQLServer();
-            clienteSeleccionado = sqlServer.obtenerClientePorCedula(nroCedulaSeleccionada);
+            clienteSeleccionado = sqlServer.setearDatosCliente(nroCedulaSeleccionada);
         }
     }//GEN-LAST:event_jtbClientesActivosMouseClicked
 
@@ -258,7 +258,7 @@ public class jPEliminarCliente extends javax.swing.JPanel {
         int filaSeleccionada = jtbClientesActivos.getSelectedRow();
         if (filaSeleccionada >= 0) {
             String nroCedulaSeleccionada = jtbClientesActivos.getValueAt(filaSeleccionada, 0).toString();
-            ClienteMayorista clienteSeleccionado = metodos.obtenerClientePorCedula(nroCedulaSeleccionada);
+            ClienteMayorista clienteSeleccionado = metodos.setearDatosCliente(nroCedulaSeleccionada);
 
             // Obtener el estado actual del cliente
             boolean estadoActual = clienteSeleccionado.isEstadoCliente();

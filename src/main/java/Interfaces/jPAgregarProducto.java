@@ -255,7 +255,7 @@ public class jPAgregarProducto extends javax.swing.JPanel {
                     boolean estadoProducto = true;
                     
                     // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
-                    Producto producto = new Producto(codProd, nomProd, descProd, precioProd, pesoProd, cantStock, contCacao, estadoStock, estadoProducto);
+                    Producto producto = new Producto(codProd, nomProd, descProd, catProd, precioProd, pesoProd, cantStock, contCacao, estadoStock, estadoProducto);
                     metodosSQL.guardarProducto(producto, categoriaProd);
                     // Continuar con la lógica para guardar el cliente en la base de datos
                 } catch (Exception ex) {
