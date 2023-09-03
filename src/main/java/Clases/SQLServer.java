@@ -815,4 +815,193 @@ public class SQLServer {
         }
     }
 
+    public void mostrarProductosActivos(JTable paramTablaClientes) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Código del producto");
+        modelo.addColumn("Nombre del producto");
+        modelo.addColumn("Estado");
+
+        paramTablaClientes.setModel(modelo);
+        sql = "SELECT cod_producto, nombre_producto, estado_producto from productos p WHERE ESTADO_PRODUCTO = 1";
+        String[] datos = new String[3];
+        Statement st;
+
+        try {
+            st = objetoConexion.establecerConexion().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                modelo.addRow(datos);
+            }
+            paramTablaClientes.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se mostraron los registros");
+        }
+    }
+
+    public void mostrarProductosInactivos(JTable paramTablaClientes) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Código del producto");
+        modelo.addColumn("Nombre del producto");
+        modelo.addColumn("Estado");
+
+        paramTablaClientes.setModel(modelo);
+        sql = "SELECT p.cod_producto, p.nombre_producto, p.estado_producto from productos p WHERE ESTADO_PRODUCTO = 0";
+        String[] datos = new String[3];
+        Statement st;
+
+        try {
+            st = objetoConexion.establecerConexion().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                modelo.addRow(datos);
+            }
+            paramTablaClientes.setModel(modelo);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se mostraron los registros");
+        }
+    }
+
+    public void mostrarProductoACambiarEstado(JTable tablaProdActivos, JTable tablaProdInactivos, String codProd) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Código del producto");
+        modelo.addColumn("Nombre del producto");
+        modelo.addColumn("Estado");
+
+        if (buscarProductoEnTabla(tablaProdActivos, modelo, codProd)) {
+            // Se encontró en la tabla de activos
+            tablaProdActivos.setModel(modelo);
+        } else if (buscarProductoEnTabla(tablaProdInactivos, modelo, codProd)) {
+            // Se encontró en la tabla de inactivos
+            tablaProdInactivos.setModel(modelo);
+        } else {
+            // No se encontró en ninguna tabla
+            JOptionPane.showMessageDialog(null, "Producto no encontrado en ninguna tabla");
+        }
+    }
+
+    private boolean buscarProductoEnTabla(JTable tabla, DefaultTableModel modelo, String codProd) {
+        String[] datos = new String[3];
+
+        for (int fila = 0; fila < tabla.getRowCount(); fila++) {
+            String idEnTabla = tabla.getValueAt(fila, 0).toString();
+            if (idEnTabla.equals(codProd)) {
+                // Encontrado en la tabla, agregar a modelo
+                datos[0] = idEnTabla;
+                datos[1] = tabla.getValueAt(fila, 1).toString();
+                datos[2] = tabla.getValueAt(fila, 2).toString();
+                modelo.addRow(datos);
+                return true;
+            }
+        }
+
+        return false; // No se encontró en la tabla
+    }
+
+    public boolean cambiarEstadoProducto(Producto producto, boolean estadoProducto) {
+        CConexion objetoConexion = new CConexion();
+
+        String sql = "UPDATE PRODUCTOS SET "
+                + "ESTADO_PRODUCTO=? "
+                + "WHERE COD_PRODUCTO=?";
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement cs = conn.prepareStatement(sql);
+            // Establecer los parámetros para la actualización del cliente
+            cs.setBoolean(1, producto.isEstadoProducto());
+            cs.setString(2, producto.getCodProducto());
+            int filasActualizadas1 = cs.executeUpdate();
+            conn.close();
+            return (filasActualizadas1 > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Producto setearProducto2(String codigoProducto) {
+        CConexion objetoConexion = new CConexion();
+        Producto producto = new Producto();
+
+        String sql = "SELECT P.COD_PRODUCTO, P.NOMBRE_PRODUCTO, P.DESCRIPCION_PRODUCTO, "
+                + "P.PRECIO_UNIT, P.PESO_NETO, P.CANT_STOCK, P.CONT_CACAO, "
+                + "C.NOMBRE_CATEGORIA "
+                + "FROM PRODUCTOS P "
+                + "INNER JOIN CAT_PROD CP ON P.COD_PRODUCTO = CP.COD_PRODUCTO "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS C ON CP.ID_CATEGORIA = C.ID_CATEGORIA "
+                + "WHERE P.COD_PRODUCTO = ? AND ESTADO_PRODUCTO = 0";
+
+        String sqlCategoria = "SELECT cp.NOMBRE_CATEGORIA FROM PRODUCTOS p "
+                + "INNER JOIN CAT_PROD c ON p.COD_PRODUCTO = c.COD_PRODUCTO "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS cp ON c.ID_CATEGORIA = cp.ID_CATEGORIA "
+                + "WHERE p.COD_PRODUCTO = ? AND p.ESTADO_PRODUCTO = 0";
+
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+
+            // Consulta para obtener los datos del producto
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, codigoProducto);
+            ResultSet rs = ps.executeQuery();
+
+            // Consulta para obtener la categoría del producto
+            PreparedStatement psCategoria = conn.prepareStatement(sqlCategoria);
+            psCategoria.setString(1, codigoProducto);
+            ResultSet rsCategoria = psCategoria.executeQuery();
+
+            if (rs.next()) {
+                producto.setCodProducto(rs.getString("COD_PRODUCTO"));
+                producto.setNombreProducto(rs.getString("NOMBRE_PRODUCTO"));
+                producto.setDescripcionProducto(rs.getString("DESCRIPCION_PRODUCTO"));
+                producto.setPrecioUnit(rs.getDouble("PRECIO_UNIT"));
+                producto.setPesoNeto(rs.getDouble("PESO_NETO"));
+                producto.setCantStock(rs.getInt("CANT_STOCK"));
+                producto.setContCacao(rs.getDouble("CONT_CACAO"));
+                // Consulta y establece la categoría del producto
+                if (rsCategoria.next()) {
+                    producto.setCatProd(rsCategoria.getString("NOMBRE_CATEGORIA"));
+                }
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+        return producto;
+    }
+    
+      public boolean cambiarProdActivo(Producto prod) {
+        CConexion objetoConexion = new CConexion();
+
+        String sql = "UPDATE PRODUCTOS SET "
+                + "ESTADO_PRODUCTO=1 "
+                + "WHERE COD_PRODUCTO=?";
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement cs = conn.prepareStatement(sql);
+            // Establecer los parámetros para la actualización del cliente
+            cs.setString(1, prod.getCodProducto());
+            int filasActualizadas1 = cs.executeUpdate();
+            conn.close();
+            return (filasActualizadas1 > 0);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
 }
