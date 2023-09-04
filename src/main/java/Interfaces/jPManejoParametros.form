@@ -116,7 +116,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" pref="155" max="-2" attributes="0"/>
+                              <Component id="btnActualizarParametros" min="-2" pref="155" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jButton2" min="-2" pref="156" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
@@ -128,7 +128,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnActualizarParametros" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace pref="19" max="32767" attributes="0"/>
@@ -137,10 +137,13 @@
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JButton" name="jButton1">
+                    <Component class="javax.swing.JButton" name="btnActualizarParametros">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Actualizar parametros"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnActualizarParametrosActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="jButton2">
                       <Properties>
@@ -187,11 +190,11 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel2" min="-2" pref="56" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="txtNombresCliente1" min="-2" pref="176" max="-2" attributes="0"/>
+                                          <Component id="txtIva" min="-2" pref="176" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                           <Component id="jLabel3" min="-2" pref="148" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="txtNombresCliente2" min="-2" pref="255" max="-2" attributes="0"/>
+                                          <Component id="txtCantDescGeneral" min="-2" pref="255" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -206,9 +209,9 @@
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNombresCliente1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtIva" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtNombresCliente2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtCantDescGeneral" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -232,9 +235,9 @@
                     <Property name="text" type="java.lang.String" value="IVA (%)"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtNombresCliente1">
+                <Component class="javax.swing.JTextField" name="txtIva">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtNombresCliente2">
+                <Component class="javax.swing.JTextField" name="txtCantDescGeneral">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel3">
                   <Properties>

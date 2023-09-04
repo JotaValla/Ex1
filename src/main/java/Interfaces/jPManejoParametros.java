@@ -13,8 +13,13 @@ public class jPManejoParametros extends javax.swing.JPanel {
     /**
      * Creates new form jPAgregarCliente
      */
+    Double nuevoIva;
+    Double cantDescuento;
+    
     public jPManejoParametros() {
         initComponents();
+        nuevoIva = 0.0;
+        cantDescuento = 0.0;
     }
 
     /**
@@ -32,12 +37,12 @@ public class jPManejoParametros extends javax.swing.JPanel {
         lblHeaderTitle = new javax.swing.JLabel();
         lblIconHeader = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnActualizarParametros = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtNombresCliente1 = new javax.swing.JTextField();
-        txtNombresCliente2 = new javax.swing.JTextField();
+        txtIva = new javax.swing.JTextField();
+        txtCantDescGeneral = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -62,7 +67,12 @@ public class jPManejoParametros extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
-        jButton1.setText("Actualizar parametros");
+        btnActualizarParametros.setText("Actualizar parametros");
+        btnActualizarParametros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarParametrosActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
 
@@ -72,7 +82,7 @@ public class jPManejoParametros extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(190, 190, 190)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnActualizarParametros, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -82,7 +92,7 @@ public class jPManejoParametros extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnActualizarParametros)
                     .addComponent(jButton2))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -227,11 +237,11 @@ public class jPManejoParametros extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtNombresCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtCantDescGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -240,9 +250,9 @@ public class jPManejoParametros extends javax.swing.JPanel {
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtNombresCliente1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtIva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtNombresCliente2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCantDescGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
@@ -279,10 +289,33 @@ public class jPManejoParametros extends javax.swing.JPanel {
         add(mainPanel);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnActualizarParametrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarParametrosActionPerformed
+        nuevoIva = Double.valueOf(txtIva.getText());
+        cantDescuento = Double.valueOf(txtCantDescGeneral.getText());
+    }//GEN-LAST:event_btnActualizarParametrosActionPerformed
+    
+    
+    public Double getCantDescuento() {    
+        return cantDescuento;
+    }
+
+    //Getters and setters
+    public void setCantDescuento(Double cantDescuento) {
+        this.cantDescuento = cantDescuento;
+    }
+
+    public Double getNuevoIva() {
+        return nuevoIva;
+    }
+
+    //Getters and setters
+    public void setNuevoIva(Double nuevoIva) {
+        this.nuevoIva = nuevoIva;
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelDatos;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnActualizarParametros;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -306,7 +339,7 @@ public class jPManejoParametros extends javax.swing.JPanel {
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel panelHeader;
-    private javax.swing.JTextField txtNombresCliente1;
-    private javax.swing.JTextField txtNombresCliente2;
+    private javax.swing.JTextField txtCantDescGeneral;
+    private javax.swing.JTextField txtIva;
     // End of variables declaration//GEN-END:variables
 }

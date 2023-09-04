@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -727,7 +728,6 @@ public class SQLServer {
             System.out.println(e);
             e.printStackTrace();
         }
-        System.out.println(producto.getCatProd());
         return producto;
     }
 
@@ -983,8 +983,8 @@ public class SQLServer {
         }
         return producto;
     }
-    
-      public boolean cambiarProdActivo(Producto prod) {
+
+    public boolean cambiarProdActivo(Producto prod) {
         CConexion objetoConexion = new CConexion();
 
         String sql = "UPDATE PRODUCTOS SET "
@@ -1003,5 +1003,103 @@ public class SQLServer {
             return false;
         }
     }
-    
+
+    public boolean actualizarCantidadStock(String codigoProducto, int nuevaCantidadStock) {
+        CConexion objetoConexion = new CConexion();
+
+        String sql = "UPDATE PRODUCTOS SET CANT_STOCK = ? WHERE COD_PRODUCTO = ?";
+
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            // Establecer los parámetros para la actualización de cantidad en stock
+            ps.setInt(1, nuevaCantidadStock);
+            ps.setString(2, codigoProducto);
+
+            int filasActualizadas = ps.executeUpdate();
+            conn.close();
+
+            return filasActualizadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
+            return false;
+        }
+    }
+
+    public String obtenerCodigoProductoPorNombre(String nombreProducto) {
+        String codigoProducto = null;
+        CConexion objetoConexion = new CConexion();
+        Connection conn = objetoConexion.establecerConexion();
+
+        try {
+            String sql = "SELECT COD_PRODUCTO FROM PRODUCTOS WHERE NOMBRE_PRODUCTO = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, nombreProducto);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                codigoProducto = rs.getString("COD_PRODUCTO");
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return codigoProducto;
+    }
+
+    public boolean guardarFactura(String idFactura, String idCliente, String idEmpleado, double montoTotal, List<String> codigosProductos) {
+        CConexion objetoConexion = new CConexion();
+        Connection conn = objetoConexion.establecerConexion();
+        boolean exito = false;
+
+        try {
+            conn.setAutoCommit(false); // Deshabilitar la autoconfirmación
+
+            // Inserción de la factura
+            String sqlInsertFactura = "INSERT INTO FACTURA (ID_FACTURA, ID_CLIENTE, ID_EMPLEADO, FECHA_EMISION, ESTADO_FACTURA, MONTO_TOTAL) "
+                    + "VALUES (?, ?, ?, GETDATE(), '1', ?)";
+            PreparedStatement psInsertFactura = conn.prepareStatement(sqlInsertFactura);
+            psInsertFactura.setString(1, idFactura);
+            psInsertFactura.setString(2, idCliente);
+            psInsertFactura.setString(3, idEmpleado);
+            psInsertFactura.setDouble(4, montoTotal);
+            psInsertFactura.executeUpdate();
+
+            // Inserción de los detalles de la factura
+            String sqlInsertDetalle = "INSERT INTO DETALLE_FACTURA (COD_PRODUCTO, ID_FACTURA) VALUES (?, ?)";
+            PreparedStatement psInsertDetalle = conn.prepareStatement(sqlInsertDetalle);
+
+            for (String codigoProducto : codigosProductos) {
+                psInsertDetalle.setString(1, codigoProducto);
+                psInsertDetalle.setString(2, idFactura);
+                psInsertDetalle.addBatch(); // Agregar la consulta al lote
+            }
+
+            psInsertDetalle.executeBatch(); // Ejecutar el lote de inserción de detalles
+
+            conn.commit(); // Confirmar la transacción
+            exito = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            try {
+                conn.rollback(); // Revertir la transacción en caso de error
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } finally {
+            try {
+                conn.setAutoCommit(true); // Habilitar la autoconfirmación nuevamente
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return exito;
+    }
+
 }
