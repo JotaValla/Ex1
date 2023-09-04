@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
@@ -1100,6 +1101,118 @@ public class SQLServer {
         }
 
         return exito;
+    }
+
+    public void mostrarFacturas(JTable tablaFacturas) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("ID de la factura");
+        modelo.addColumn("Nombre del cliente");
+        modelo.addColumn("Número de indetificacion");
+        modelo.addColumn("Fecha");
+        modelo.addColumn("Valor total");
+
+        tablaFacturas.setModel(modelo);
+        sql = "SELECT F.ID_FACTURA, C.NOMBRES_CLIENTE, F.ID_CLIENTE, F.FECHA_EMISION, F.MONTO_TOTAL "
+                + "FROM FACTURA F JOIN CLIENTES C ON F.ID_CLIENTE = C.ID_CLIENTE ";
+        String[] datos = new String[5];
+        Statement st;
+
+        try {
+            st = objetoConexion.establecerConexion().createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
+            }
+            tablaFacturas.setModel(modelo);
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "No se mostraron los registros");
+        }
+    }
+
+    public Factura setearFactura(String idFactura) {
+        CConexion objetoConexion = new CConexion();
+        Factura factura = new Factura();
+
+        String sqlFactura = "SELECT F.ID_FACTURA, F.ID_CLIENTE, F.ID_EMPLEADO, F.FECHA_EMISION, F.ESTADO_FACTURA, F.MONTO_TOTAL, C.NOMBRES_CLIENTE "
+                + "FROM FACTURA F "
+                + "JOIN CLIENTES C ON F.ID_CLIENTE = C.ID_CLIENTE "
+                + "WHERE F.ID_FACTURA = ?";
+
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement ps = conn.prepareStatement(sqlFactura);
+            ps.setString(1, idFactura);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                factura.setIdFactura(rs.getString("ID_FACTURA"));
+                factura.setIdCliente(rs.getString("ID_CLIENTE"));
+                factura.setIdEmpleado(rs.getString("ID_EMPLEADO"));
+                factura.setFecha(rs.getTimestamp("FECHA_EMISION"));
+                factura.setEstadoFactura(rs.getBoolean("ESTADO_FACTURA"));
+                factura.setMontoTotal(rs.getDouble("MONTO_TOTAL"));
+                factura.setNomCliente(rs.getString("NOMBRES_CLIENTE"));
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            e.printStackTrace();
+        }
+
+        return factura;
+    }
+
+    public void mostrarFacturasPorCliente(JTable tablaFacturas, String idCliente) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("ID Factura");
+        modelo.addColumn("Nombres Cliente");
+        modelo.addColumn("ID Cliente");
+        modelo.addColumn("Fecha Emisión");
+        modelo.addColumn("Monto Total");
+
+        tablaFacturas.setModel(modelo);
+
+        sql = "SELECT F.ID_FACTURA, C.NOMBRES_CLIENTE, F.ID_CLIENTE, F.FECHA_EMISION, F.MONTO_TOTAL "
+                + "FROM FACTURA F "
+                + "JOIN CLIENTES C ON F.ID_CLIENTE = C.ID_CLIENTE "
+                + "WHERE F.ID_CLIENTE = ?";
+
+        String[] datos = new String[5];
+        PreparedStatement ps;
+
+        try {
+            ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, idCliente);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                datos[0] = rs.getString("ID_FACTURA");
+                datos[1] = rs.getString("NOMBRES_CLIENTE");
+                datos[2] = rs.getString("ID_CLIENTE");
+                datos[3] = rs.getString("FECHA_EMISION");
+                datos[4] = rs.getString("MONTO_TOTAL");
+                modelo.addRow(datos);
+            }
+
+            tablaFacturas.setModel(modelo);
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error al obtener las facturas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
 }

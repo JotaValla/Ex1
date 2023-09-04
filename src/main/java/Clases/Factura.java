@@ -16,7 +16,16 @@ public class Factura {
     private Timestamp fecha;
     private boolean estadoFactura;
     private Double montoTotal;
+    private String nomCliente;
 
+    public String getNomCliente() {
+        return nomCliente;
+    }
+
+    public void setNomCliente(String nomCliente) {
+        this.nomCliente = nomCliente;
+    }
+    
     public String getIdFactura() {
         return idFactura;
     }
