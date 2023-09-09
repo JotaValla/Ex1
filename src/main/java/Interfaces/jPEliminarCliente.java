@@ -185,7 +185,7 @@ public class jPEliminarCliente extends javax.swing.JPanel {
                 btnCambiarEstadoActivoActionPerformed(evt);
             }
         });
-        add(btnCambiarEstadoActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 630, 180, 40));
+        add(btnCambiarEstadoActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 670, 180, 40));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de clientes inactivos"));
 
@@ -224,7 +224,7 @@ public class jPEliminarCliente extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, -1, -1));
+        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 480, -1, -1));
 
         btnInactivarCliente.setText("Inactivar cliente");
         btnInactivarCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +232,7 @@ public class jPEliminarCliente extends javax.swing.JPanel {
                 btnInactivarClienteActionPerformed(evt);
             }
         });
-        add(btnInactivarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 630, 170, 40));
+        add(btnInactivarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 170, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBuscarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarCliActionPerformed
@@ -271,6 +271,9 @@ public class jPEliminarCliente extends javax.swing.JPanel {
 
             // Actualizar la tabla de clientes
             jtbClientesActivos.setValueAt(clienteSeleccionado.isEstadoCliente(), filaSeleccionada, 3);
+            JOptionPane.showMessageDialog(null, "Estado de cliente cambiado correctamente", "Cambio de estado de un cliente", JOptionPane.INFORMATION_MESSAGE);
+            metodos.mostrarClientesActivos(jtbClientesActivos);
+            metodos.mostrarClientesInactivos(jtbClientesInactivos);
         }
     }//GEN-LAST:event_btnInactivarClienteActionPerformed
 
@@ -292,6 +295,9 @@ public class jPEliminarCliente extends javax.swing.JPanel {
 
             // Actualizar la tabla de clientes
             jtbClientesInactivos.setValueAt(clienteSeleccionado.isEstadoCliente(), filaSeleccionada, 3);
+            JOptionPane.showMessageDialog(null, "Estado de cliente cambiado correctamente", "Cambio de estado de un cliente", JOptionPane.INFORMATION_MESSAGE);
+            metodos.mostrarClientesActivos(jtbClientesActivos);
+            metodos.mostrarClientesInactivos(jtbClientesInactivos);
         }
     }//GEN-LAST:event_btnCambiarEstadoActivoActionPerformed
 

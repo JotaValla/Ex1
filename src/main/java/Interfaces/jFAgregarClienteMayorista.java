@@ -3,6 +3,7 @@ package Interfaces;
 import javax.accessibility.AccessibleContext;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.JTextField;
 
@@ -18,6 +19,7 @@ public class jFAgregarClienteMayorista extends javax.swing.JFrame {
         telfLocal = "";
         dirLocal = "";
         setLocationRelativeTo(this);
+        limpiarDatos(); 
     }
 
     public String getNomLocal() {
@@ -113,9 +115,27 @@ public class jFAgregarClienteMayorista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtDirLocal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDirLocalKeyReleased(evt);
+            }
+        });
+
         jLabel3.setText("Dirección del local mayorista:");
 
+        txtTelfLocal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelfLocalKeyReleased(evt);
+            }
+        });
+
         jLabel2.setText("Telefono adicional de contacto:");
+
+        txtnomLocal.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtnomLocalKeyReleased(evt);
+            }
+        });
 
         jLabel1.setText("Nombre del local mayorista:");
 
@@ -211,6 +231,58 @@ public class jFAgregarClienteMayorista extends javax.swing.JFrame {
     private void btnLimpiarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarDatosActionPerformed
         limpiarDatos();
     }//GEN-LAST:event_btnLimpiarDatosActionPerformed
+
+    private void txtnomLocalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnomLocalKeyReleased
+// Obtener el texto del JTextField
+        String texto = txtnomLocal.getText();
+
+        // Usar una expresión regular para validar el texto
+        if (!texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]*$")) {
+            // Si el texto no coincide con la expresión regular, mostrar un mensaje de error
+            mostrarMensajeError("Debe ingresar solo letras, espacios y vocales con tildes.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtnomLocal.setText(texto.replaceAll("[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]", ""));
+        }
+    }//GEN-LAST:event_txtnomLocalKeyReleased
+
+    private void txtTelfLocalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelfLocalKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtTelfLocal.getText();
+
+        // Validar que solo se ingresen dígitos numéricos y que no exceda los 10 dígitos
+        if (!texto.matches("\\d{0,10}")) {
+            // Si no cumple con la validación, mostrar un mensaje de error
+            mostrarMensajeError("El número de contacto debe contener hasta 10 dígitos numéricos.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtTelfLocal.setText(texto.replaceAll("[^0-9]", ""));
+        }
+    }//GEN-LAST:event_txtTelfLocalKeyReleased
+
+    private void txtDirLocalKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDirLocalKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtDirLocal.getText();
+
+        // Limitar la longitud máxima a 200 caracteres
+        if (texto.length() > 200) {
+            // Si se supera la longitud máxima, mostrar un mensaje de error
+            mostrarMensajeError("La dirección no puede superar los 200 caracteres.");
+            // Recortar el texto a 200 caracteres
+            txtDirLocal.setText(texto.substring(0, 200));
+        }
+
+        // Usar una expresión regular para validar el texto permitiendo caracteres especiales
+        if (!texto.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ: \\-#./\\s]*$")) {
+            // Si el texto no coincide con la expresión regular, mostrar un mensaje de error
+            mostrarMensajeError("La dirección contiene caracteres no válidos.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtDirLocal.setText(texto.replaceAll("[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ: -#./\\s]", ""));
+        }
+    }//GEN-LAST:event_txtDirLocalKeyReleased
+
+    private void mostrarMensajeError(String mensaje) {
+        // Puedes mostrar el mensaje de error en un JLabel o en una ventana emergente
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     public void limpiarDatos() {
         txtnomLocal.setText("");

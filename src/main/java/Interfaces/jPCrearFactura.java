@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package Interfaces;
 
 import Clases.ClienteMayorista;
@@ -142,7 +139,7 @@ public class jPCrearFactura extends javax.swing.JPanel {
             new Object [][] {
             },
             new String [] {
-                "Nombre del producto", "Cantidad", "P. Unitario", "Total"
+                "Codigo", "Nombre", "Cantidad","P.Unitario","Total"
             }
         ) {
             @Override

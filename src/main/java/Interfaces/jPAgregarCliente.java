@@ -4,6 +4,7 @@ import Clases.ClienteMayorista;
 import Clases.ClienteParticular;
 import Clases.SQLServer;
 import ConexionBD.ConexionSQLServer;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -11,6 +12,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class jPAgregarCliente extends javax.swing.JPanel {
@@ -26,7 +29,6 @@ public class jPAgregarCliente extends javax.swing.JPanel {
         metodosSQL = new SQLServer();
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,11 +99,38 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
         jLabel1.setText("Nombres:");
 
+        txtNomCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomCliKeyReleased(evt);
+            }
+        });
+
         jLabel2.setText("Apellidos:");
+
+        txtApeCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtApeCliKeyReleased(evt);
+            }
+        });
+
+        txtNroID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNroIDKeyReleased(evt);
+            }
+        });
 
         jLabel3.setText("Numero de identificación:");
 
         jLabel4.setText("Número de contacto:");
+
+        txtDirCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDirCliKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDirCliKeyTyped(evt);
+            }
+        });
 
         jLabel8.setText("Tipo de identificación:");
 
@@ -109,9 +138,30 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
         jLabel9.setText("Dirección de domicilio:");
 
+        txtNumCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNumCliKeyReleased(evt);
+            }
+        });
+
+        txtCorrCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCorrCliKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorrCliKeyTyped(evt);
+            }
+        });
+
         jLabel5.setText("Correo electrónico:");
 
         jLabel7.setText("Fecha de nacimiento:");
+
+        txtFechaNa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtFechaNaKeyReleased(evt);
+            }
+        });
 
         jLabel6.setText("Preferencia de producto:");
 
@@ -302,7 +352,47 @@ public class jPAgregarCliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jcbTipoCliActionPerformed
 
     private void btnAggCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggCliActionPerformed
+        // Obtén el texto ingresado en el textField
+        String correo = txtCorrCli.getText();
 
+        // Expresión regular para verificar un correo electrónico gradualmente
+        String regex = "^[A-Za-z0-9+_.-]*@[A-Za-z0-9+_.-]*$";
+
+        // Compila la expresión regular en un patrón
+        Pattern pattern = Pattern.compile(regex);
+
+        // Verifica si el correo coincide con el patrón
+        if (!pattern.matcher(correo).matches()) {
+            mostrarMensajeError("Correo electrónico no válido.");
+            return;
+        }
+        
+        // Obtén el texto ingresado en el textField
+        String fechaTexto = txtFechaNa.getText();
+
+        // Expresión regular para verificar el formato dd/mm/aaaa de forma gradual
+        String regex2 = "^([0-3]?[0-9]?)?/?([0-1]?[0-9]?)?/?([0-9]{0,4})?$";
+
+        // Compila la expresión regular en un patrón
+        Pattern pattern2 = Pattern.compile(regex2);
+
+        // Verifica si la fecha coincide con el patrón
+        if (!pattern2.matcher(fechaTexto).matches()) {
+            mostrarMensajeError("Formato de fecha inválido. Utilice dd/mm/aaaa.");
+            return;
+        }
+
+        // Si el formato es correcto, intenta validar la fecha
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        sdf.setLenient(false); // No permitir fechas inválidas (por ejemplo, 90/18/9999)
+
+        try {
+            Date fecha = sdf.parse(fechaTexto);
+            // La fecha es válida si no se ha lanzado una excepción ParseException
+        } catch (ParseException e) {
+            mostrarMensajeError("Fecha no válida.");
+            return;
+        }
         switch (jcbTipoCli.getSelectedIndex()) {
             case 1:
                 try {
@@ -336,9 +426,13 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
                 // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
                 ClienteMayorista cliente = new ClienteMayorista(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli, prefProd, tipoCli, a, b, c, fechaNaci, estadoActivo);
-                    System.out.println();
-                metodosSQL.GuardarClienteMayorista(cliente, prefCli);
-                limpiarDatosCliente();
+                if (cliente.validadorDeCedula(nroID) == true) {
+                    metodosSQL.GuardarClienteMayorista(cliente, prefCli);
+                    limpiarDatosCliente();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Número de cédula no valida");
+                    limpiarDatosCliente();
+                }
             } catch (ParseException ex) {
                 System.out.println(ex);
             } catch (SQLException ex) {
@@ -373,8 +467,13 @@ public class jPAgregarCliente extends javax.swing.JPanel {
 
                 // Ahora puedes crear un objeto ClienteParticular con los datos recopilados
                 ClienteParticular cliente = new ClienteParticular(nroID, tipoID, nomCli, apeCli, dirCli, correoCli, numCli, fechaNaci, prefProd, tipoCli, estadoActivo);
-                metodosSQL.GuardarClienteParticular(cliente, prefCli);
-                limpiarDatosCliente();
+                if (cliente.validadorDeCedula(nroID) == true) {
+                    metodosSQL.GuardarClienteParticular(cliente, prefCli);
+                    limpiarDatosCliente();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Número de cédula no valida");
+                    limpiarDatosCliente();
+                }
             } catch (ParseException ex) {
                 System.out.println(ex);
             } catch (SQLException ex) {
@@ -391,6 +490,110 @@ public class jPAgregarCliente extends javax.swing.JPanel {
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         limpiarDatosCliente();
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtNroIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNroIDKeyReleased
+        int comboBoxIndex = jcbTipoCli.getSelectedIndex();
+
+        // Obtener el texto del campo de texto
+        String texto = txtNroID.getText();
+
+        // Realizar la validación según el índice del JComboBox
+        if (comboBoxIndex == 0) {
+            // Validar para hasta 10 dígitos numéricos
+            if (!texto.matches("\\d{0,10}")) {
+                mostrarMensajeError("Debe ingresar hasta 10 dígitos numéricos.");
+                txtNroID.setText(""); // Limpiar el campo
+            }
+        } else if (comboBoxIndex == 2) {
+            // Validar para hasta 13 dígitos numéricos
+            if (!texto.matches("\\d{0,13}")) {
+                mostrarMensajeError("Debe ingresar hasta 13 dígitos numéricos.");
+                txtNroID.setText(""); // Limpiar el campo
+            }
+        }
+        // No hacer nada si el índice es 2 o más (índice 3 en tu caso)
+    }//GEN-LAST:event_txtNroIDKeyReleased
+
+    private void txtNomCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomCliKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtNomCli.getText();
+
+        // Usar una expresión regular para validar el texto
+        if (!texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]*$")) {
+            // Si el texto no coincide con la expresión regular, mostrar un mensaje de error
+            mostrarMensajeError("Debe ingresar solo letras.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtNomCli.setText(texto.replaceAll("[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]", ""));
+        }
+    }//GEN-LAST:event_txtNomCliKeyReleased
+
+    private void txtApeCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApeCliKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtApeCli.getText();
+
+        // Usar una expresión regular para validar el texto
+        if (!texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]*$")) {
+            // Si el texto no coincide con la expresión regular, mostrar un mensaje de error
+            mostrarMensajeError("Debe ingresar solo letras.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtApeCli.setText(texto.replaceAll("[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]", ""));
+        }
+    }//GEN-LAST:event_txtApeCliKeyReleased
+
+    private void txtDirCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDirCliKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtDirCli.getText();
+
+        // Limitar la longitud máxima a 200 caracteres
+        if (texto.length() > 200) {
+            // Si se supera la longitud máxima, mostrar un mensaje de error
+            mostrarMensajeError("La dirección no puede superar los 200 caracteres.");
+            // Recortar el texto a 200 caracteres
+            txtDirCli.setText(texto.substring(0, 200));
+        }
+
+        // Usar una expresión regular para validar el texto permitiendo caracteres especiales
+        if (!texto.matches("^[a-zA-Z0-9áéíóúÁÉÍÓÚüÜñÑ: \\-#./\\s]*$")) {
+            // Si el texto no coincide con la expresión regular, mostrar un mensaje de error
+            mostrarMensajeError("La dirección contiene caracteres no válidos.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtDirCli.setText(texto.replaceAll("[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ: -#./\\s]", ""));
+        }
+    }//GEN-LAST:event_txtDirCliKeyReleased
+
+    private void txtNumCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumCliKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtNumCli.getText();
+
+        // Validar que solo se ingresen dígitos numéricos y que no exceda los 10 dígitos
+        if (!texto.matches("\\d{0,10}")) {
+            // Si no cumple con la validación, mostrar un mensaje de error
+            mostrarMensajeError("El número de contacto debe contener hasta 10 dígitos numéricos.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtNumCli.setText(texto.replaceAll("[^0-9]", ""));
+        }
+    }//GEN-LAST:event_txtNumCliKeyReleased
+
+    private void txtCorrCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorrCliKeyReleased
+
+    }//GEN-LAST:event_txtCorrCliKeyReleased
+
+    private void txtFechaNaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFechaNaKeyReleased
+
+    }//GEN-LAST:event_txtFechaNaKeyReleased
+
+    private void txtDirCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDirCliKeyTyped
+
+    }//GEN-LAST:event_txtDirCliKeyTyped
+
+    private void txtCorrCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorrCliKeyTyped
+
+    }//GEN-LAST:event_txtCorrCliKeyTyped
+
+    private void mostrarMensajeError(String mensaje) {
+        // Puedes mostrar el mensaje de error en un JLabel o en una ventana emergente
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     //Limpiar variables
     public void limpiarDatosCliente() {

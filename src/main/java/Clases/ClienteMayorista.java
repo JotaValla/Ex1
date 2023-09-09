@@ -180,8 +180,10 @@ public class ClienteMayorista {
                 cedulaCorrecta = false;
             }
         } catch (NumberFormatException nfe) {
+            System.out.println(nfe);
             cedulaCorrecta = false;
         } catch (Exception err) {
+            System.out.println(err);
             cedulaCorrecta = false;
         }
         return cedulaCorrecta;

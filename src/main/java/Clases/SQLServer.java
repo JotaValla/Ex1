@@ -31,6 +31,12 @@ public class SQLServer {
 
         CConexion objetoConexion = new CConexion();
 
+        // Verificar si el cliente ya existe
+        if (clienteYaExiste(cliente.getNroID())) {
+            JOptionPane.showMessageDialog(null, "El cliente ya está registrado", "SIGCH", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String sql = "INSERT INTO CLIENTES (ID_CLIENTE, TIPO_IDENTIFICACION, NOMBRES_CLIENTE, "
                 + "APELLIDOS_CLIENTE, DIRECCION_CLIENTE, TELEFONO_CLIENTE, CORREO_CLIENTE, "
                 + "FECHA_NACIMIENTO_CLIENTE, FECHA_INGRESO_CLIENTE, ESTADO_CLIENTE, NOMBRE_LOCAL, TELEFONO_ADICIONAL, DIRECCION_LOCAL, TIPO_CLIENTE) "
@@ -111,6 +117,12 @@ public class SQLServer {
 
         CConexion objetoConexion = new CConexion();
 
+        // Verificar si el cliente ya existe
+        if (clienteYaExiste(cliente.getNroID())) {
+            JOptionPane.showMessageDialog(null, "El cliente ya está registrado", "SIGCH", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String sql = "INSERT INTO CLIENTES (ID_CLIENTE, TIPO_IDENTIFICACION, NOMBRES_CLIENTE, "
                 + "APELLIDOS_CLIENTE, DIRECCION_CLIENTE, TELEFONO_CLIENTE, CORREO_CLIENTE, "
                 + "FECHA_NACIMIENTO_CLIENTE, FECHA_INGRESO_CLIENTE, ESTADO_CLIENTE, TIPO_CLIENTE) "
@@ -181,6 +193,22 @@ public class SQLServer {
                 JOptionPane.showMessageDialog(null, "El cliente ingresado ya está registrado",
                         "SIGCH", JOptionPane.ERROR_MESSAGE);
             }
+        }
+    }
+
+    // Método para verificar si el cliente ya existe
+    private boolean clienteYaExiste(String nroID) throws SQLException {
+        String sql = "SELECT 1 FROM CLIENTES WHERE ID_CLIENTE = ?";
+        CConexion objetoConexion = new CConexion();
+
+        try {
+            PreparedStatement ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, nroID);
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // Devuelve true si el cliente ya existe, false en caso contrario
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
         }
     }
 
@@ -311,6 +339,69 @@ public class SQLServer {
             paramTablaClientes.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No se mostraron los registros");
+        }
+    }
+
+    public void mostrarClientesPorTipo(JTable tabla, String tipoCliente) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Número de cédula");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("Apellidos");
+
+        tabla.setModel(modelo);
+
+        sql = "SELECT id_cliente, nombres_cliente, apellidos_cliente FROM clientes WHERE tipo_cliente = ? AND ESTADO_CLIENTE = 1";
+        try {
+            PreparedStatement ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, tipoCliente);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String idCliente = rs.getString(1);
+                String nombres = rs.getString(2);
+                String apellidos = rs.getString(3);
+                modelo.addRow(new Object[]{idCliente, nombres, apellidos});
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error al consultar clientes por tipo: " + e.getMessage());
+        }
+    }
+
+    public void mostrarClientesPorPreferencia(JTable tabla, String nombreCategoria) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Número de cédula");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("Apellidos");
+
+        tabla.setModel(modelo);
+
+        sql = "SELECT C.id_cliente, C.nombres_cliente, C.apellidos_cliente "
+                + "FROM clientes C "
+                + "JOIN preferencias_cliente P ON C.id_cliente = P.id_cliente "
+                + "JOIN categorias_productos CP ON P.id_categoria = CP.id_categoria "
+                + "WHERE CP.nombre_categoria = ? AND C.ESTADO_CLIENTE = 1";
+
+        try {
+            PreparedStatement ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, nombreCategoria);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String idCliente = rs.getString(1);
+                String nombres = rs.getString(2);
+                String apellidos = rs.getString(3);
+                modelo.addRow(new Object[]{idCliente, nombres, apellidos});
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error al consultar clientes por preferencia: " + e.getMessage());
         }
     }
 
