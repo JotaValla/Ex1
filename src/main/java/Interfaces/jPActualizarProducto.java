@@ -14,6 +14,10 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         metodos = new SQLServer();
         producto = new Producto();
         metodos.mostrarProductos(jtProductos);
+        lblFiltroNom.setVisible(false);
+        lblFiltroCat.setVisible(false);
+        txtNomFiltro.setVisible(false);
+        jcbFiltroCat.setVisible(false);
     }
 
     /**
@@ -28,12 +32,6 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         panelHeader = new javax.swing.JPanel();
         lblHeaderTitle = new javax.swing.JLabel();
         lblIconHeader = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        txtCodProdABuscar = new javax.swing.JTextField();
-        jPanel3 = new javax.swing.JPanel();
-        btnBuscarProd = new javax.swing.JButton();
-        btnLimpiarDatos = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNomProd = new javax.swing.JTextField();
@@ -55,6 +53,19 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtProductos = new javax.swing.JTable();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jcbFiltroMain = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        lblFiltroCod = new javax.swing.JLabel();
+        txtCodProdBuscar = new javax.swing.JTextField();
+        lblFiltroNom = new javax.swing.JLabel();
+        txtNomFiltro = new javax.swing.JTextField();
+        lblFiltroCat = new javax.swing.JLabel();
+        jcbFiltroCat = new javax.swing.JComboBox<>();
+        jPanel3 = new javax.swing.JPanel();
+        btnBuscarProd = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -85,76 +96,7 @@ public class jPActualizarProducto extends javax.swing.JPanel {
                 .addComponent(lblHeaderTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        add(panelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 739, -1));
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda del producto"));
-
-        jLabel5.setText("Ingrese el código del producto a buscar:");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(txtCodProdABuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodProdABuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(24, 24, 24))
-        );
-
-        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 610, 100));
-
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
-
-        btnBuscarProd.setText("Buscar producto");
-        btnBuscarProd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarProdActionPerformed(evt);
-            }
-        });
-
-        btnLimpiarDatos.setText("Limpiar datos");
-        btnLimpiarDatos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarDatosActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnLimpiarDatos, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBuscarProd))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnLimpiarDatos)))
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
-
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 370, 100));
+        add(panelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 739, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del producto"));
 
@@ -250,7 +192,7 @@ public class jPActualizarProducto extends javax.swing.JPanel {
                     .addComponent(txtNomProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel10)
@@ -275,7 +217,7 @@ public class jPActualizarProducto extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 990, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, 990, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de productos"));
 
@@ -314,7 +256,127 @@ public class jPActualizarProducto extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 990, 180));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 990, 180));
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros de busqueda"));
+
+        jLabel6.setText("Seleccione mediante que filtro se va a buscar:");
+
+        jcbFiltroMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código del producto", "Nombre del producto", "Categoría del producto" }));
+        jcbFiltroMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbFiltroMainActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbFiltroMain, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jcbFiltroMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+
+        add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 320, 160));
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda del producto"));
+
+        lblFiltroCod.setText("Ingrese el código del producto a buscar:");
+
+        lblFiltroNom.setText("Ingrese el nombre del producto a buscar:");
+
+        lblFiltroCat.setText("Seleccione la categoría:");
+
+        jcbFiltroCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFiltroCod, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFiltroNom)
+                    .addComponent(lblFiltroCat))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcbFiltroCat, 0, 178, Short.MAX_VALUE)
+                    .addComponent(txtCodProdBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNomFiltro, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFiltroCod)
+                    .addComponent(txtCodProdBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFiltroNom)
+                    .addComponent(txtNomFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFiltroCat)
+                    .addComponent(jcbFiltroCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(7, Short.MAX_VALUE))
+        );
+
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 440, 150));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
+
+        btnBuscarProd.setText("Buscar producto");
+        btnBuscarProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarProdActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setText("Limpiar datos");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBuscarProd)
+                .addGap(18, 18, 18)
+                .addComponent(btnLimpiar)
+                .addContainerGap(57, Short.MAX_VALUE))
+        );
+
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 100, 190, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomProdActionPerformed
@@ -341,16 +403,6 @@ public class jPActualizarProducto extends javax.swing.JPanel {
             jspCantCacao.setValue(productoSeleccionado.getContCacao());
         }
     }//GEN-LAST:event_jtProductosMouseClicked
-
-    private void btnBuscarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdActionPerformed
-        metodos.mostrarProductoBuscado(jtProductos, txtCodProdABuscar.getText());
-        limpiarDatosProducto();
-    }//GEN-LAST:event_btnBuscarProdActionPerformed
-
-    private void btnLimpiarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarDatosActionPerformed
-        limpiarDatosProducto();
-        metodos.mostrarProductos(jtProductos);
-    }//GEN-LAST:event_btnLimpiarDatosActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         // Obtener los datos de los campos de texto
@@ -382,9 +434,64 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         metodos.mostrarProductos(jtProductos);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
+    private void jcbFiltroMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltroMainActionPerformed
+        switch (jcbFiltroMain.getSelectedIndex()) {
+            case 0:
+                lblFiltroCod.setVisible(true);
+                txtCodProdBuscar.setVisible(true);
+                lblFiltroNom.setVisible(false);
+                lblFiltroCat.setVisible(false);
+                txtNomFiltro.setVisible(false);
+                jcbFiltroCat.setVisible(false);
+                break;
+            case 1:
+                lblFiltroNom.setVisible(true);
+                lblFiltroCat.setVisible(false);
+                txtNomFiltro.setVisible(true);
+                jcbFiltroCat.setVisible(false);
+                lblFiltroCod.setVisible(false);
+                txtCodProdBuscar.setVisible(false);
+                break;
+            case 2:
+                lblFiltroNom.setVisible(false);
+                lblFiltroCat.setVisible(true);
+                txtNomFiltro.setVisible(false);
+                jcbFiltroCat.setVisible(true);
+                lblFiltroCod.setVisible(false);
+                txtCodProdBuscar.setVisible(false);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }//GEN-LAST:event_jcbFiltroMainActionPerformed
+
+    private void btnBuscarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdActionPerformed
+        switch (jcbFiltroMain.getSelectedIndex()) {
+            case 0:
+                metodos.mostrarProductoBuscado(jtProductos, txtCodProdBuscar.getText());
+                limpiarDatosProducto();
+                break;
+            case 1:
+                metodos.mostrarProductosPorNombre(jtProductos, txtNomFiltro.getText());
+                limpiarDatosProducto();
+                break;
+            case 2:
+                metodos.mostrarProductosPorCategoria(jtProductos, jcbFiltroCat.getSelectedItem().toString());
+                limpiarDatosProducto();
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }//GEN-LAST:event_btnBuscarProdActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarDatosProducto();
+        metodos.mostrarProductos(jtProductos);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
     public void limpiarDatosProducto() {
         txtCodProd.setText("");
-        txtCodProdABuscar.setText("");
+        txtCodProdBuscar.setText("");
         txtDescProd.setText("");
         txtNomProd.setText("");
         txtPesoProd.setText("");
@@ -392,37 +499,48 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         jspCantCacao.setValue(0);
         jspCantStock.setValue(0);
         jcbCatProd.setSelectedIndex(0);
+        lblFiltroNom.setVisible(false);
+        lblFiltroCat.setVisible(false);
+        txtNomFiltro.setVisible(false);
+        jcbFiltroCat.setVisible(false);
     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnBuscarProd;
-    private javax.swing.JButton btnLimpiarDatos;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbCatProd;
+    private javax.swing.JComboBox<String> jcbFiltroCat;
+    private javax.swing.JComboBox<String> jcbFiltroMain;
     private javax.swing.JSpinner jspCantCacao;
     private javax.swing.JSpinner jspCantStock;
     private javax.swing.JTable jtProductos;
+    private javax.swing.JLabel lblFiltroCat;
+    private javax.swing.JLabel lblFiltroCod;
+    private javax.swing.JLabel lblFiltroNom;
     private javax.swing.JLabel lblHeaderTitle;
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JTextField txtCodProd;
-    private javax.swing.JTextField txtCodProdABuscar;
+    private javax.swing.JTextField txtCodProdBuscar;
     private javax.swing.JTextField txtDescProd;
+    private javax.swing.JTextField txtNomFiltro;
     private javax.swing.JTextField txtNomProd;
     private javax.swing.JTextField txtPesoProd;
     private javax.swing.JTextField txtPrecioProd;

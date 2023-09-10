@@ -760,7 +760,9 @@ public class SQLServer {
             while (rs.next()) {
                 datos[0] = rs.getString(1);
                 datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
+                // Formatea el valor de la columna "Precio" con dos decimales
+                double precio = rs.getDouble(3);
+                datos[2] = String.format("%.2f", precio);
                 datos[3] = rs.getString(4);
                 datos[4] = rs.getString(5);
                 modelo.addRow(datos);
@@ -860,7 +862,11 @@ public class SQLServer {
             do {
                 datos[0] = rs.getString(1);
                 datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
+
+                // Formatea el valor de la columna "Precio" con dos decimales
+                double precio = rs.getDouble(3);
+                datos[2] = String.format("%.2f", precio);
+
                 datos[3] = rs.getString(4);
                 datos[4] = rs.getString(5);
                 modelo.addRow(datos);
@@ -869,6 +875,96 @@ public class SQLServer {
             tablaProductos.setModel(modelo);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al obtener el producto", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void mostrarProductosPorCategoria(JTable tablaProductos, String categoria) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Código del producto");
+        modelo.addColumn("Nombre del producto");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Cantidad en stock");
+        modelo.addColumn("Categoría");
+
+        tablaProductos.setModel(modelo);
+
+        sql = "SELECT P.COD_PRODUCTO, P.NOMBRE_PRODUCTO, P.PRECIO_UNIT, P.CANT_STOCK, C.NOMBRE_CATEGORIA "
+                + "FROM PRODUCTOS P "
+                + "INNER JOIN CAT_PROD CP ON P.COD_PRODUCTO = CP.COD_PRODUCTO "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS C ON CP.ID_CATEGORIA = C.ID_CATEGORIA "
+                + "WHERE C.NOMBRE_CATEGORIA = ? AND P.ESTADO_PRODUCTO = 1";
+
+        String[] datos = new String[5];
+        PreparedStatement ps;
+
+        try {
+            ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, categoria);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                // Formatea el valor de la columna "Precio" con dos decimales
+                double precio = rs.getDouble(3);
+                datos[2] = String.format("%.2f", precio);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
+            }
+
+            tablaProductos.setModel(modelo);
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error al obtener los productos por categoría", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void mostrarProductosPorNombre(JTable tablaProductos, String nombreProducto) {
+        CConexion objetoConexion = new CConexion();
+        DefaultTableModel modelo = new DefaultTableModel();
+        String sql = "";
+
+        modelo.addColumn("Código del producto");
+        modelo.addColumn("Nombre del producto");
+        modelo.addColumn("Precio");
+        modelo.addColumn("Cantidad en stock");
+        modelo.addColumn("Categoría");
+
+        tablaProductos.setModel(modelo);
+
+        sql = "SELECT P.COD_PRODUCTO, P.NOMBRE_PRODUCTO, P.PRECIO_UNIT, P.CANT_STOCK, C.NOMBRE_CATEGORIA "
+                + "FROM PRODUCTOS P "
+                + "INNER JOIN CAT_PROD CP ON P.COD_PRODUCTO = CP.COD_PRODUCTO "
+                + "INNER JOIN CATEGORIAS_PRODUCTOS C ON CP.ID_CATEGORIA = C.ID_CATEGORIA "
+                + "WHERE P.NOMBRE_PRODUCTO = ? AND P.ESTADO_PRODUCTO = 1";
+
+        String[] datos = new String[5];
+        PreparedStatement ps;
+
+        try {
+            ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, nombreProducto);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                // Formatea el valor de la columna "Precio" con dos decimales
+                double precio = rs.getDouble(3);
+                datos[2] = String.format("%.2f", precio);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                modelo.addRow(datos);
+            }
+
+            tablaProductos.setModel(modelo);
+        } catch (Exception e) {
+            System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Error al obtener los productos por nombre", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

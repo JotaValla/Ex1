@@ -13,6 +13,10 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         metodos = new SQLServer();
         producto = new Producto();
         metodos.mostrarProductos(jtProductos);
+        lblFiltroNom.setVisible(false);
+        lblFiltroCat.setVisible(false);
+        txtNomFiltro.setVisible(false);
+        jcbFiltroCat.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -23,8 +27,12 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         lblHeaderTitle = new javax.swing.JLabel();
         lblIconHeader = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        lblFiltroCod = new javax.swing.JLabel();
         txtCodProdBuscar = new javax.swing.JTextField();
+        lblFiltroNom = new javax.swing.JLabel();
+        txtNomFiltro = new javax.swing.JTextField();
+        lblFiltroCat = new javax.swing.JLabel();
+        jcbFiltroCat = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         btnBuscarProd = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
@@ -48,6 +56,9 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jspContCacao = new javax.swing.JSpinner();
         jspCantProd = new javax.swing.JSpinner();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jcbFiltroMain = new javax.swing.JComboBox<>();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -78,11 +89,17 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                 .addComponent(lblHeaderTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        add(panelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 739, -1));
+        add(panelHeader, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 739, -1));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda del producto"));
 
-        jLabel5.setText("Ingrese el código del producto a buscar:");
+        lblFiltroCod.setText("Ingrese el código del producto a buscar:");
+
+        lblFiltroNom.setText("Ingrese el nombre del producto a buscar:");
+
+        lblFiltroCat.setText("Seleccione la categoría:");
+
+        jcbFiltroCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -90,22 +107,36 @@ public class jPBuscarProducto extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblFiltroCod, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblFiltroNom)
+                    .addComponent(lblFiltroCat))
                 .addGap(18, 18, 18)
-                .addComponent(txtCodProdBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                .addGap(20, 20, 20))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jcbFiltroCat, 0, 178, Short.MAX_VALUE)
+                    .addComponent(txtCodProdBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNomFiltro, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodProdBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(24, 24, 24))
+                    .addComponent(lblFiltroCod)
+                    .addComponent(txtCodProdBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFiltroNom)
+                    .addComponent(txtNomFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblFiltroCat)
+                    .addComponent(jcbFiltroCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
 
-        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 610, 100));
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 440, 150));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
@@ -128,26 +159,23 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnLimpiar, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btnBuscarProd))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(btnLimpiar)))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(btnBuscarProd)
+                .addGap(18, 18, 18)
+                .addComponent(btnLimpiar)
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 120, 370, 100));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 110, 190, 150));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de productos"));
 
@@ -186,7 +214,7 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 990, 180));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 990, 180));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del producto"));
 
@@ -284,7 +312,7 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                     .addComponent(txtNomProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtDescProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCodProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel10)
@@ -305,7 +333,41 @@ public class jPBuscarProducto extends javax.swing.JPanel {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 990, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, 990, -1));
+
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros de busqueda"));
+
+        jLabel6.setText("Seleccione mediante que filtro se va a buscar:");
+
+        jcbFiltroMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Código del producto", "Nombre del producto", "Categoría del producto" }));
+        jcbFiltroMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbFiltroMainActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbFiltroMain, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(jcbFiltroMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
+        );
+
+        add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 320, 160));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNomProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomProdActionPerformed
@@ -334,14 +396,61 @@ public class jPBuscarProducto extends javax.swing.JPanel {
     }//GEN-LAST:event_jtProductosMouseClicked
 
     private void btnBuscarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarProdActionPerformed
-        metodos.mostrarProductoBuscado(jtProductos, txtCodProdBuscar.getText());
-        limpiarDatosProducto();
+        switch (jcbFiltroMain.getSelectedIndex()) {
+            case 0:
+                metodos.mostrarProductoBuscado(jtProductos, txtCodProdBuscar.getText());
+                limpiarDatosProducto();
+                break;
+            case 1:
+                metodos.mostrarProductosPorNombre(jtProductos, txtNomFiltro.getText());
+                limpiarDatosProducto();
+                break;
+            case 2:
+                metodos.mostrarProductosPorCategoria(jtProductos, jcbFiltroCat.getSelectedItem().toString());
+                limpiarDatosProducto();
+                break;
+            default:
+                throw new AssertionError();
+        }
+
     }//GEN-LAST:event_btnBuscarProdActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         limpiarDatosProducto();
         metodos.mostrarProductos(jtProductos);
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void jcbFiltroMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltroMainActionPerformed
+        switch (jcbFiltroMain.getSelectedIndex()) {
+            case 0:
+                lblFiltroCod.setVisible(true);
+                txtCodProdBuscar.setVisible(true);
+                lblFiltroNom.setVisible(false);
+                lblFiltroCat.setVisible(false);
+                txtNomFiltro.setVisible(false);
+                jcbFiltroCat.setVisible(false);
+                break;
+            case 1:
+                lblFiltroNom.setVisible(true);
+                lblFiltroCat.setVisible(false);
+                txtNomFiltro.setVisible(true);
+                jcbFiltroCat.setVisible(false);
+                lblFiltroCod.setVisible(false);
+                txtCodProdBuscar.setVisible(false);
+                break;
+            case 2:
+                lblFiltroNom.setVisible(false);
+                lblFiltroCat.setVisible(true);
+                txtNomFiltro.setVisible(false);
+                jcbFiltroCat.setVisible(true);
+                lblFiltroCod.setVisible(false);
+                txtCodProdBuscar.setVisible(false);
+                break;
+            default:
+                throw new AssertionError();
+        }
+
+    }//GEN-LAST:event_jcbFiltroMainActionPerformed
 
     public void limpiarDatosProducto() {
         txtCodProd.setText("");
@@ -353,6 +462,10 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         jspCantProd.setValue(0);
         jspContCacao.setValue(0);
         jcbCatProd.setSelectedIndex(0);
+        lblFiltroNom.setVisible(false);
+        lblFiltroCat.setVisible(false);
+        txtNomFiltro.setVisible(false);
+        jcbFiltroCat.setVisible(false);
     }
 
 
@@ -365,24 +478,31 @@ public class jPBuscarProducto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jcbCatProd;
+    private javax.swing.JComboBox<String> jcbFiltroCat;
+    private javax.swing.JComboBox<String> jcbFiltroMain;
     private javax.swing.JSpinner jspCantProd;
     private javax.swing.JSpinner jspContCacao;
     private javax.swing.JTable jtProductos;
+    private javax.swing.JLabel lblFiltroCat;
+    private javax.swing.JLabel lblFiltroCod;
+    private javax.swing.JLabel lblFiltroNom;
     private javax.swing.JLabel lblHeaderTitle;
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel panelHeader;
     private javax.swing.JTextField txtCodProd;
     private javax.swing.JTextField txtCodProdBuscar;
     private javax.swing.JTextField txtDescProd;
+    private javax.swing.JTextField txtNomFiltro;
     private javax.swing.JTextField txtNomProd;
     private javax.swing.JTextField txtPesoProd;
     private javax.swing.JTextField txtPrecioProd;

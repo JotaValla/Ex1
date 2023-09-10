@@ -181,7 +181,7 @@ public class jPEliminarProducto extends javax.swing.JPanel {
                 btnCambiarActivoActionPerformed(evt);
             }
         });
-        add(btnCambiarActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 630, 190, 40));
+        add(btnCambiarActivo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 650, 190, 30));
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de productos inactivos"));
 
@@ -215,7 +215,7 @@ public class jPEliminarProducto extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 430, -1, -1));
+        add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 460, -1, -1));
 
         btnInactivas.setText("Inactivar producto");
         btnInactivas.addActionListener(new java.awt.event.ActionListener() {
@@ -223,7 +223,7 @@ public class jPEliminarProducto extends javax.swing.JPanel {
                 btnInactivasActionPerformed(evt);
             }
         });
-        add(btnInactivas, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 630, 220, 40));
+        add(btnInactivas, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, 220, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
@@ -254,6 +254,8 @@ public class jPEliminarProducto extends javax.swing.JPanel {
             // Actualizar la tabla de clientes
             jtProductosActivos.setValueAt(prodSeleccionado.isEstadoProducto(), filaSeleccionada, 2);
         }
+        metodos.mostrarProductosActivos(jtProductosActivos);
+        metodos.mostrarProductosInactivos(jtProductosInactivos);
     }//GEN-LAST:event_btnInactivasActionPerformed
 
     private void btnCambiarActivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActivoActionPerformed
@@ -275,6 +277,8 @@ public class jPEliminarProducto extends javax.swing.JPanel {
             // Actualizar la tabla de clientes
             jtProductosInactivos.setValueAt(prodSeleccionado.isEstadoProducto(), filaSeleccionada, 2);
         }
+        metodos.mostrarProductosActivos(jtProductosActivos);
+        metodos.mostrarProductosInactivos(jtProductosInactivos);
     }//GEN-LAST:event_btnCambiarActivoActionPerformed
 
     public void limpiarDatos() {
