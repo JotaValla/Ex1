@@ -187,7 +187,7 @@ public class SQLServer {
             JOptionPane.showMessageDialog(null, "Cliente particular registrado con éxito", "SIGCH", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException e) {
             System.err.println(e);
-            JOptionPane.showMessageDialog(null, "Error al guardar cliente",
+            JOptionPane.showMessageDialog(null, "Error al guardar el cliente",
                     "SIGCH", JOptionPane.ERROR_MESSAGE);
             if (e.getMessage().contains("Duplicate entry")) {
                 JOptionPane.showMessageDialog(null, "El cliente ingresado ya está registrado",
