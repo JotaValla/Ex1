@@ -212,6 +212,21 @@ public class SQLServer {
         }
     }
 
+    private boolean productoYaExiste(String codProd) throws SQLException {
+        String sql = "SELECT 1 FROM PRODUCTOS WHERE COD_PRODUCTO = ?";
+        CConexion objetoConexion = new CConexion();
+
+        try {
+            PreparedStatement ps = objetoConexion.establecerConexion().prepareStatement(sql);
+            ps.setString(1, codProd);
+            ResultSet rs = ps.executeQuery();
+            return rs.next(); // Devuelve true si el cliente ya existe, false en caso contrario
+        } catch (SQLException e) {
+            System.err.println(e);
+            return false;
+        }
+    }
+
     public void mostrarClientes(JTable paramTablaClientes) {
         CConexion objetoConexion = new CConexion();
         DefaultTableModel modelo = new DefaultTableModel();
@@ -664,8 +679,14 @@ public class SQLServer {
         }
     }
 
-    public void guardarProducto(Producto producto, int catprodElegido) {
+    public void guardarProducto(Producto producto, int catprodElegido) throws SQLException {
         CConexion objetoConexion = new CConexion();
+
+        // Verificar si el cliente ya existe
+        if (productoYaExiste(producto.getCodProducto())) {
+            JOptionPane.showMessageDialog(null, "El producto ya está registrado", "SIGCH", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         String sql = "INSERT INTO PRODUCTOS (COD_PRODUCTO, NOMBRE_PRODUCTO, DESCRIPCION_PRODUCTO, PRECIO_UNIT, PESO_NETO, CANT_STOCK, CONT_CACAO, ESTADO_STOCK, ESTADO_PRODUCTO) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";

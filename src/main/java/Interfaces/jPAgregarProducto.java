@@ -274,6 +274,7 @@ public class jPAgregarProducto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAggActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggActionPerformed
+       
         try {
             String codProd = txtCodProd.getText();
             String nomProd = txtnomProd.getText();

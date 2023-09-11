@@ -483,6 +483,7 @@ public class jPActualizarCliente extends javax.swing.JPanel {
         System.out.println(mayorista.getTxtnomLocal().getText());
         System.out.println(mayorista.getTxtTelfLocal().getText());
         System.out.println(mayorista.getTxtDirLocal().getText());
+        metodos.mostrarClientes(jtClientes);
     }//GEN-LAST:event_btnModificarMayoristaActionPerformed
 
     private void btnActualizarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarDatosActionPerformed
@@ -563,6 +564,7 @@ public class jPActualizarCliente extends javax.swing.JPanel {
             clienteSeleccionado.setDirLocal("NULL");
             clienteSeleccionado.setTipoCliente("Particular");
             JOptionPane.showMessageDialog(null, "Tipo de cliente cambiado correctamente, para visualizar el cambio de click en actualizar datos del cliente", "Cambio de cliente", JOptionPane.INFORMATION_MESSAGE);
+            metodos.mostrarClientes(jtClientes);
         }
     }//GEN-LAST:event_btnCambiarParticularActionPerformed
 
@@ -575,7 +577,7 @@ public class jPActualizarCliente extends javax.swing.JPanel {
         clienteSeleccionado.setDirLocal(mayorista.getDirLocal());
         clienteSeleccionado.setTipoCliente("Mayorista");
         jcbTipoCli.setSelectedIndex(0);
-
+        metodos.mostrarClientes(jtClientes);
     }//GEN-LAST:event_btnCambiarMayoristaActionPerformed
 
     private void jcbFiltroMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltroMainActionPerformed
