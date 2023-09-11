@@ -129,7 +129,7 @@ public class jFAgregarClienteMayorista extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Telefono adicional de contacto:");
+        jLabel2.setText("Teléfono adicional de contacto:");
 
         txtnomLocal.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {

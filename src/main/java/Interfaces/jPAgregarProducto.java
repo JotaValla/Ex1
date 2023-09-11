@@ -108,7 +108,7 @@ public class jPAgregarProducto extends javax.swing.JPanel {
             }
         });
 
-        jLabel3.setText("Precio:$:");
+        jLabel3.setText("Precio ($) :");
 
         jLabel4.setText("Cantidad en stock:");
 

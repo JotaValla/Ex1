@@ -58,10 +58,9 @@ public class LoginSGCH extends javax.swing.JFrame {
 
         logoname.setBackground(new java.awt.Color(255, 255, 255));
         logoname.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
-        logoname.setForeground(new java.awt.Color(0, 0, 0));
         logoname.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoname.setText("SISTEMA DE GESTION DE CHOCOLATERIA");
-        bg.add(logoname, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 390, 90));
+        logoname.setText("SISTEMA INTEGRADO DE GESTIÓN DE CHOCOLATERIA");
+        bg.add(logoname, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 520, 90));
 
         citybg.setBackground(new java.awt.Color(0, 134, 190));
         citybg.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+"\\src\\main\\java\\img\\logoo.jpg"));
@@ -220,7 +219,9 @@ public class LoginSGCH extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(bg, javax.swing.GroupLayout.DEFAULT_SIZE, 946, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(bg, javax.swing.GroupLayout.PREFERRED_SIZE, 1012, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -433,7 +433,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda del cliente"));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lblFiltroID.setText("Ingrese el número de cédula del cliente a buscar:");
+        lblFiltroID.setText("Ingrese el número de identificación del cliente a buscar:");
         jPanel4.add(lblFiltroID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         txtCedulaABuscar.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -441,13 +441,13 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                 txtCedulaABuscarKeyReleased(evt);
             }
         });
-        jPanel4.add(txtCedulaABuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, 170, -1));
+        jPanel4.add(txtCedulaABuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 170, -1));
 
         lblFiltroTipo.setText("Eliga el tipo de cliente a filtrar:");
         jPanel4.add(lblFiltroTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
         jcbFiltroTipoCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mayorista", "Particular" }));
-        jPanel4.add(jcbFiltroTipoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 170, -1));
+        jPanel4.add(jcbFiltroTipoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 170, -1));
 
         lblFiltroPref.setText("Eliga la preferencia de producto a filtrar:");
         jPanel4.add(lblFiltroPref, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 240, -1));
@@ -458,9 +458,9 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                 jcbFiltroPrefCliActionPerformed(evt);
             }
         });
-        jPanel4.add(jcbFiltroPrefCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 170, -1));
+        jPanel4.add(jcbFiltroPrefCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 170, -1));
 
-        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 480, 160));
+        add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 510, 160));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -484,7 +484,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
         jButton3.setText("Exportar lista");
         jPanel3.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 113, -1));
 
-        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 110, 170, 160));
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 110, 190, 160));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla clientes"));
 
@@ -565,7 +565,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
 
         jLabel10.setText("Correo electrónico:");
 
-        jLabel11.setText("Preferencia productos:");
+        jLabel11.setText("Preferencia de productos:");
 
         jcboPrefCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
         jcboPrefCli.setEnabled(false);
@@ -619,16 +619,16 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(txtDirDomi, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnMostrarDatosMayorista, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(4, 4, 4)
-                                .addComponent(jcbTipoCli, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnMostrarDatosMayorista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jcboPrefCli, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jcbTipoCli, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(jcboPrefCli, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -687,10 +687,10 @@ public class jPBuscarCliente extends javax.swing.JPanel {
             pnlFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFiltroLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
-                    .addComponent(jcbFiltroMain, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGroup(pnlFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbFiltroMain, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlFiltroLayout.setVerticalGroup(
             pnlFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -702,7 +702,7 @@ public class jPBuscarCliente extends javax.swing.JPanel {
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
-        add(pnlFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 310, 120));
+        add(pnlFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 260, 120));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtnomCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomCliActionPerformed

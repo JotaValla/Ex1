@@ -658,7 +658,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="480" y="100" width="480" height="160"/>
+          <AbsoluteConstraints x="430" y="100" width="510" height="160"/>
         </Constraint>
       </Constraints>
 
@@ -668,7 +668,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblFiltroID">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ingrese el n&#xfa;mero de c&#xe9;dula del cliente a buscar:"/>
+            <Property name="text" type="java.lang.String" value="Ingrese el n&#xfa;mero de identificaci&#xf3;n del cliente a buscar:"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -682,7 +682,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="290" y="40" width="170" height="-1"/>
+              <AbsoluteConstraints x="320" y="40" width="170" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -710,7 +710,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="290" y="80" width="170" height="-1"/>
+              <AbsoluteConstraints x="320" y="80" width="170" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -747,7 +747,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="290" y="120" width="170" height="-1"/>
+              <AbsoluteConstraints x="320" y="120" width="170" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -761,7 +761,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="970" y="110" width="170" height="160"/>
+          <AbsoluteConstraints x="950" y="110" width="190" height="160"/>
         </Constraint>
       </Constraints>
 
@@ -916,18 +916,18 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="txtDirDomi" min="-2" pref="314" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="btnMostrarDatosMayorista" alignment="0" min="-2" pref="231" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel12" min="-2" pref="86" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                                  <Component id="jcbTipoCli" min="-2" pref="141" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jcbTipoCli" min="-2" pref="113" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="jLabel11" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                  <Component id="jcboPrefCli" min="-2" pref="222" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="btnMostrarDatosMayorista" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" pref="124" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jcboPrefCli" min="-2" pref="261" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -1054,7 +1054,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Preferencia productos:"/>
+            <Property name="text" type="java.lang.String" value="Preferencia de productos:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="jcboPrefCli">
@@ -1117,7 +1117,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="160" y="100" width="310" height="120"/>
+          <AbsoluteConstraints x="160" y="100" width="260" height="120"/>
         </Constraint>
       </Constraints>
 
@@ -1126,11 +1126,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel6" pref="254" max="32767" attributes="0"/>
-                      <Component id="jcbFiltroMain" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel6" min="-2" pref="254" max="-2" attributes="0"/>
+                      <Component id="jcbFiltroMain" min="-2" pref="204" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="40" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

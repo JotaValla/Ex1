@@ -765,7 +765,7 @@ public class SQLServer {
         modelo.addColumn("Nombre del producto");
         modelo.addColumn("Precio");
         modelo.addColumn("Cantidad en stock");
-        modelo.addColumn("Categoria");
+        modelo.addColumn("Categoría");
 
         paramTablaClientes.setModel(modelo);
         sql = "SELECT p.cod_producto, p.nombre_producto, p.precio_unit, p.cant_stock, cp.NOMBRE_CATEGORIA "
@@ -1343,7 +1343,7 @@ public class SQLServer {
 
         modelo.addColumn("ID de la factura");
         modelo.addColumn("Nombre del cliente");
-        modelo.addColumn("Número de indetificacion");
+        modelo.addColumn("Número de indetificación");
         modelo.addColumn("Fecha");
         modelo.addColumn("Valor total");
 
