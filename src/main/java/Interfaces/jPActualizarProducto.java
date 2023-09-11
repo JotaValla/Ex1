@@ -107,8 +107,19 @@ public class jPActualizarProducto extends javax.swing.JPanel {
                 txtNomProdActionPerformed(evt);
             }
         });
+        txtNomProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomProdKeyReleased(evt);
+            }
+        });
 
         jLabel2.setText("Descripción del producto:");
+
+        txtDescProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDescProdKeyReleased(evt);
+            }
+        });
 
         txtCodProd.setEditable(false);
         txtCodProd.setEnabled(false);
@@ -118,9 +129,21 @@ public class jPActualizarProducto extends javax.swing.JPanel {
 
         jLabel4.setText("Peso neto(g):");
 
+        txtPesoProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesoProdKeyReleased(evt);
+            }
+        });
+
         jLabel8.setText("Categoría del producto");
 
         jLabel9.setText("Cantidad en stock:");
+
+        txtPrecioProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPrecioProdKeyReleased(evt);
+            }
+        });
 
         jLabel10.setText("Precio $:");
 
@@ -133,6 +156,18 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
+            }
+        });
+
+        jspCantCacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jspCantCacaoKeyReleased(evt);
+            }
+        });
+
+        jspCantStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jspCantStockKeyReleased(evt);
             }
         });
 
@@ -489,6 +524,92 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         metodos.mostrarProductos(jtProductos);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
+    private void txtNomProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomProdKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtNomProd.getText();
+
+        // Usar una expresión regular para validar el texto
+        if (!texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]*$")) {
+            // Si el texto no coincide con la expresión regular, mostrar un mensaje de error
+            mostrarMensajeError("Debe ingresar solo letras.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtNomProd.setText(texto.replaceAll("[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]", ""));
+        }
+    }//GEN-LAST:event_txtNomProdKeyReleased
+
+    private void txtDescProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescProdKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtDescProd.getText();
+
+        // Usar una expresión regular para validar el texto
+        if (!texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]*$")) {
+            // Si el texto no coincide con la expresión regular, mostrar un mensaje de error
+            mostrarMensajeError("Debe ingresar solo letras.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtDescProd.setText(texto.replaceAll("[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]", ""));
+        }
+    }//GEN-LAST:event_txtDescProdKeyReleased
+
+    private void txtPrecioProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioProdKeyReleased
+        String texto = txtPrecioProd.getText();
+
+        try {
+            double precio = Double.parseDouble(texto);
+            if (precio < 0) {
+                mostrarMensajeError("El precio no puede ser negativo.");
+                txtPrecioProd.setText(""); // Limpiar el campo si es negativo
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensajeError("Precio no válido. Debe ser un número.");
+            txtPrecioProd.setText(""); // Limpiar el campo si no es un número válido
+        }
+    }//GEN-LAST:event_txtPrecioProdKeyReleased
+
+    private void txtPesoProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesoProdKeyReleased
+        String texto = txtPesoProd.getText();
+
+        try {
+            double precio = Double.parseDouble(texto);
+            if (precio < 0) {
+                mostrarMensajeError("El peso no puede ser negativo.");
+                txtPesoProd.setText(""); // Limpiar el campo si es negativo
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensajeError("Peso neto no válido. Debe ser un número.");
+            txtPesoProd.setText(""); // Limpiar el campo si no es un número válido
+        }
+    }//GEN-LAST:event_txtPesoProdKeyReleased
+
+    private void jspCantStockKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jspCantStockKeyReleased
+        String texto = jspCantStock.getValue().toString();
+
+        try {
+            int cantidad = Integer.parseInt(texto);
+            if (cantidad <= 0) {
+                mostrarMensajeError("La cantidad en stock debe ser mayor que 0.");
+                jspCantStock.setValue(""); // Limpiar el campo si es menor o igual a 0
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensajeError("Cantidad en stock no válida. Debe ser un número entero.");
+            jspCantStock.setValue(""); // Limpiar el campo si no es un número válido
+        }
+    }//GEN-LAST:event_jspCantStockKeyReleased
+
+    private void jspCantCacaoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jspCantCacaoKeyReleased
+        String texto = jspCantCacao.getValue().toString();
+
+        try {
+            int cantidad = Integer.parseInt(texto);
+            if (cantidad <= 0) {
+                mostrarMensajeError("La cantidad en stock debe ser mayor que 0.");
+                jspCantCacao.setValue(""); // Limpiar el campo si es menor o igual a 0
+            }
+        } catch (NumberFormatException e) {
+            mostrarMensajeError("Cantidad en stock no válida. Debe ser un número entero.");
+            jspCantCacao.setValue(""); // Limpiar el campo si no es un número válido
+        }
+    }//GEN-LAST:event_jspCantCacaoKeyReleased
+
     public void limpiarDatosProducto() {
         txtCodProd.setText("");
         txtCodProdBuscar.setText("");
@@ -503,6 +624,11 @@ public class jPActualizarProducto extends javax.swing.JPanel {
         lblFiltroCat.setVisible(false);
         txtNomFiltro.setVisible(false);
         jcbFiltroCat.setVisible(false);
+    }
+
+    private void mostrarMensajeError(String mensaje) {
+        // Puedes mostrar el mensaje de error en un JLabel o en una ventana emergente
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
 

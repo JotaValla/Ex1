@@ -226,7 +226,7 @@ public class MenuGeneral extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 pn_content.removeAll();
-                pn_content.add(new jPCrearFactura());
+                pn_content.add(new JPVenta());
                 pn_content.repaint();
                 pn_content.revalidate();
             }

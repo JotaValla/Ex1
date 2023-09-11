@@ -2,15 +2,17 @@ package Interfaces;
 
 import Clases.ClienteMayorista;
 import Clases.SQLServer;
+import javax.swing.JOptionPane;
 
 public class jFBuscarClienteFactura extends javax.swing.JFrame {
 
     String nomCli, codCli;
     ClienteMayorista cliente;
-     SQLServer metodos;
-    
+    SQLServer metodos;
+
     public jFBuscarClienteFactura() {
         initComponents();
+        setLocationRelativeTo(this);
         metodos = new SQLServer();
         metodos.mostrarClientes(jtClientes);
         cliente = new ClienteMayorista();
@@ -23,16 +25,23 @@ public class jFBuscarClienteFactura extends javax.swing.JFrame {
         panelHeader = new javax.swing.JPanel();
         lblHeaderTitle = new javax.swing.JLabel();
         lblIconHeader = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        txtIDClientBuscar = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         btnAggCliente = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        btnBuscarClienteEspecifico = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtClientes = new javax.swing.JTable();
+        pnlFiltro = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jcbFiltroMain = new javax.swing.JComboBox<>();
+        jPanel4 = new javax.swing.JPanel();
+        lblFiltroID = new javax.swing.JLabel();
+        txtCedulaABuscar = new javax.swing.JTextField();
+        lblFiltroTipo = new javax.swing.JLabel();
+        jcbFiltroTipoCli = new javax.swing.JComboBox<>();
+        lblFiltroPref = new javax.swing.JLabel();
+        jcbFiltroPrefCli = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,37 +72,6 @@ public class jFBuscarClienteFactura extends javax.swing.JFrame {
                 .addComponent(lblHeaderTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda del cliente"));
-
-        jLabel5.setText("Ingrese el número de cédula del cliente a buscar:");
-
-        txtIDClientBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDClientBuscarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(txtIDClientBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(31, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtIDClientBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addGap(24, 24, 24))
-        );
-
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Opciones"));
 
         btnAggCliente.setText("Agregar cliente");
@@ -103,33 +81,41 @@ public class jFBuscarClienteFactura extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Cancelar busqueda");
-
         jButton4.setText("Limpiar datos");
+
+        btnBuscarClienteEspecifico.setText("Buscar cliente");
+        btnBuscarClienteEspecifico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarClienteEspecificoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAggCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAggCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBuscarClienteEspecifico, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAggCliente)
-                    .addComponent(jButton4))
+                .addComponent(btnAggCliente)
+                .addGap(12, 12, 12)
+                .addComponent(btnBuscarClienteEspecifico)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jButton4)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de clientes"));
@@ -169,62 +155,208 @@ public class jFBuscarClienteFactura extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        pnlFiltro.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros de busqueda"));
+
+        jLabel6.setText("Seleccione mediante que filtro desea buscar:");
+
+        jcbFiltroMain.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Número de identificación", "Tipo de cliente", "Preferencia de cliente" }));
+        jcbFiltroMain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbFiltroMainActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout pnlFiltroLayout = new javax.swing.GroupLayout(pnlFiltro);
+        pnlFiltro.setLayout(pnlFiltroLayout);
+        pnlFiltroLayout.setHorizontalGroup(
+            pnlFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFiltroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                    .addComponent(jcbFiltroMain, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        pnlFiltroLayout.setVerticalGroup(
+            pnlFiltroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlFiltroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jcbFiltroMain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Búsqueda del cliente"));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblFiltroID.setText("Ingrese el número de cédula del cliente a buscar:");
+        jPanel4.add(lblFiltroID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        txtCedulaABuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCedulaABuscarKeyReleased(evt);
+            }
+        });
+        jPanel4.add(txtCedulaABuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 170, -1));
+
+        lblFiltroTipo.setText("Eliga el tipo de cliente a filtrar:");
+        jPanel4.add(lblFiltroTipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+
+        jcbFiltroTipoCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mayorista", "Particular" }));
+        jPanel4.add(jcbFiltroTipoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, 170, -1));
+
+        lblFiltroPref.setText("Eliga la preferencia de producto a filtrar:");
+        jPanel4.add(lblFiltroPref, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 240, -1));
+
+        jcbFiltroPrefCli.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chocolate y confitería", "Bebidas de cacao", "Productos en polvo", "Aceites", "Repostería", "Artesanales", "Orgánicos", "Decoración" }));
+        jcbFiltroPrefCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbFiltroPrefCliActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jcbFiltroPrefCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 170, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 990, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(140, 140, 140)
-                            .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(10, 10, 10)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(143, 143, 143))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(pnlFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 404, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(8, 8, 8)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(pnlFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(10, 10, 10)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAggClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAggClienteActionPerformed
-        jPCrearFactura factura = new jPCrearFactura();
-        factura.setTxtCliSeleccionado(getNomCli());
+        JPVenta.txtNomApeCli.setEnabled(false);
+        JPVenta.txtNumIDCli.setEnabled(false);
+        JPVenta.btnBuscarCliente.setEnabled(false);
         this.setVisible(false);
     }//GEN-LAST:event_btnAggClienteActionPerformed
 
     private void jtClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtClientesMouseClicked
         int filaSeleccionada = jtClientes.getSelectedRow();
         if (filaSeleccionada >= 0) {
-            setNomCli(jtClientes.getValueAt(filaSeleccionada, 1).toString());
-            setCodCli(jtClientes.getValueAt(filaSeleccionada, 0).toString());
+            JPVenta.txtNomApeCli.setText(jtClientes.getValueAt(filaSeleccionada, 1).toString());
+            JPVenta.txtNumIDCli.setText(jtClientes.getValueAt(filaSeleccionada, 0).toString());
             cliente = metodos.setearDatosCliente(codCli);
         }
     }//GEN-LAST:event_jtClientesMouseClicked
 
-    private void txtIDClientBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDClientBuscarActionPerformed
+    private void jcbFiltroMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltroMainActionPerformed
+        switch (jcbFiltroMain.getSelectedIndex()) {
+            case 0:
+                lblFiltroID.setVisible(true);
+                txtCedulaABuscar.setVisible(true);
+                lblFiltroTipo.setVisible(false);
+                lblFiltroPref.setVisible(false);
+                jcbFiltroPrefCli.setVisible(false);
+                jcbFiltroTipoCli.setVisible(false);
+                break;
+            case 1:
+                lblFiltroID.setVisible(false);
+                txtCedulaABuscar.setVisible(false);
+                lblFiltroTipo.setVisible(true);
+                lblFiltroPref.setVisible(false);
+                jcbFiltroPrefCli.setVisible(false);
+                jcbFiltroTipoCli.setVisible(true);
+                break;
+            case 2:
+                lblFiltroID.setVisible(false);
+                txtCedulaABuscar.setVisible(false);
+                lblFiltroTipo.setVisible(false);
+                lblFiltroPref.setVisible(true);
+                jcbFiltroPrefCli.setVisible(true);
+                jcbFiltroTipoCli.setVisible(false);
+                break;
+            default:
+                throw new AssertionError();
+        }
+    }//GEN-LAST:event_jcbFiltroMainActionPerformed
+
+    private void txtCedulaABuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaABuscarKeyReleased
+
+        String texto = txtCedulaABuscar.getText();
+
+        // Validar para hasta 10 dígitos numéricos
+        if (!texto.matches("\\d{0,10}")) {
+            mostrarMensajeError("Debe ingresar hasta 10 dígitos numéricos.");
+            txtCedulaABuscar.setText(""); // Limpiar el campo
+        }
+    }//GEN-LAST:event_txtCedulaABuscarKeyReleased
+
+    private void jcbFiltroPrefCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbFiltroPrefCliActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDClientBuscarActionPerformed
+    }//GEN-LAST:event_jcbFiltroPrefCliActionPerformed
+
+    private void btnBuscarClienteEspecificoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteEspecificoActionPerformed
+        switch (jcbFiltroMain.getSelectedIndex()) {
+            case 0:
+                metodos.mostrarClientesPorNroCedula(jtClientes, txtCedulaABuscar.getText());
+                limpiarDatosCliente();
+                break;
+            case 1:
+                metodos.mostrarClientesPorTipo(jtClientes, jcbFiltroTipoCli.getSelectedItem().toString());
+                limpiarDatosCliente();
+                break;
+            case 2:
+                metodos.mostrarClientesPorPreferencia(jtClientes, jcbFiltroPrefCli.getSelectedItem().toString());
+                limpiarDatosCliente();
+                break;
+            default:
+                throw new AssertionError();
+        }
+
+        //        metodos.mostrarClientesPorNroCedula(jtClientes, txtCedulaABuscar.getText());
+        //        limpiarDatosCliente();
+    }//GEN-LAST:event_btnBuscarClienteEspecificoActionPerformed
+
+    public void limpiarDatosCliente() {
+        txtCedulaABuscar.setText("");
+        lblFiltroTipo.setVisible(false);
+        lblFiltroPref.setVisible(false);
+        jcbFiltroPrefCli.setVisible(false);
+        jcbFiltroTipoCli.setVisible(false);
+    }
+
+    private void mostrarMensajeError(String mensaje) {
+        // Puedes mostrar el mensaje de error en un JLabel o en una ventana emergente
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
     public ClienteMayorista getCliente() {
         return cliente;
@@ -234,8 +366,6 @@ public class jFBuscarClienteFactura extends javax.swing.JFrame {
         this.cliente = cliente;
     }
 
-    
-    
     public String getCodCli() {
         return codCli;
     }
@@ -243,8 +373,7 @@ public class jFBuscarClienteFactura extends javax.swing.JFrame {
     public void setCodCli(String codCli) {
         this.codCli = codCli;
     }
-    
-    
+
     public String getNomCli() {
         return nomCli;
     }
@@ -290,17 +419,24 @@ public class jFBuscarClienteFactura extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAggCliente;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnBuscarClienteEspecifico;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbFiltroMain;
+    private javax.swing.JComboBox<String> jcbFiltroPrefCli;
+    private javax.swing.JComboBox<String> jcbFiltroTipoCli;
     private javax.swing.JTable jtClientes;
+    private javax.swing.JLabel lblFiltroID;
+    private javax.swing.JLabel lblFiltroPref;
+    private javax.swing.JLabel lblFiltroTipo;
     private javax.swing.JLabel lblHeaderTitle;
     private javax.swing.JLabel lblIconHeader;
     private javax.swing.JPanel panelHeader;
-    private javax.swing.JTextField txtIDClientBuscar;
+    private javax.swing.JPanel pnlFiltro;
+    private javax.swing.JTextField txtCedulaABuscar;
     // End of variables declaration//GEN-END:variables
 }

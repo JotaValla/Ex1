@@ -1216,6 +1216,31 @@ public class SQLServer {
         }
     }
 
+    public int obtenerStockProducto(String codigoProducto) {
+        CConexion objetoConexion = new CConexion();
+        String sql = "SELECT CANT_STOCK FROM PRODUCTOS WHERE COD_PRODUCTO = ?";
+        int stock = 0;
+
+        try {
+            Connection conn = objetoConexion.establecerConexion();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, codigoProducto);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                stock = rs.getInt("CANT_STOCK");
+            }
+
+            rs.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e);
+        }
+
+        return stock;
+    }
+
     public String obtenerCodigoProductoPorNombre(String nombreProducto) {
         String codigoProducto = null;
         CConexion objetoConexion = new CConexion();

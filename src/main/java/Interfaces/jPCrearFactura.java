@@ -1,4 +1,3 @@
-
 package Interfaces;
 
 import Clases.ClienteMayorista;
@@ -14,7 +13,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,6 +43,7 @@ public class jPCrearFactura extends javax.swing.JPanel {
     String codProd;
     int cantStockProd, flag;
     double totalPagar;
+    private Map<String, Integer> cambiosStock = new HashMap<>();
 
     public jPCrearFactura() {
         initComponents();
@@ -60,6 +62,7 @@ public class jPCrearFactura extends javax.swing.JPanel {
         lblIVa.setVisible(false);
         lblSubtotal.setVisible(false);
         lblTotal.setVisible(false);
+
     }
 
     @SuppressWarnings("unchecked")
@@ -174,6 +177,12 @@ public class jPCrearFactura extends javax.swing.JPanel {
 
         lblTotal.setText("Total a pagar:");
 
+        txtFechaFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFechaFacturaActionPerformed(evt);
+            }
+        });
+
         lblFecha.setText("Fecha de emision:");
 
         txtTotalPagar.addActionListener(new java.awt.event.ActionListener() {
@@ -194,6 +203,12 @@ public class jPCrearFactura extends javax.swing.JPanel {
         btnBuscarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarClienteActionPerformed(evt);
+            }
+        });
+
+        txtCliSeleccionado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCliSeleccionadoActionPerformed(evt);
             }
         });
 
@@ -490,8 +505,11 @@ public class jPCrearFactura extends javax.swing.JPanel {
         Double precioUnit = productoSeleccionado.datosProducto.getPrecioUnit();
         Double totalXProducto = precioUnit * cantStockProd;
 
-        // Aquí debes llamar al método que obtiene el código del producto
+        // Obtener el código del producto
         String codProducto = metodos.obtenerCodigoProductoPorNombre(nomProd);
+
+        // Realizar un seguimiento de los cambios en el stock
+        cambiosStock.put(codProducto, cantStockProd);
 
         producto.setNombreProducto(nomProd);
         producto.setCantStock(cantStockProd);
@@ -525,9 +543,28 @@ public class jPCrearFactura extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCantProdSelKeyReleased
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // Revertir los cambios en el stock al cancelar la factura
+        for (Map.Entry<String, Integer> entry : cambiosStock.entrySet()) {
+            String codProducto = entry.getKey();
+            int stockOriginal = entry.getValue();
+
+            // Restaurar el stock original del producto
+            boolean actualizado = metodos.actualizarCantidadStock(codProducto, stockOriginal);
+
+            if (actualizado) {
+                System.out.println("Stock de " + codProducto + " restaurado a " + stockOriginal);
+            } else {
+                System.out.println("Error al restaurar el stock de " + codProducto);
+            }
+        }
+
         // Limpia las filas de la tabla manteniendo las columnas
         DefaultTableModel modelo = (DefaultTableModel) jtFactura.getModel();
         modelo.setRowCount(0);
+        
+//        // Limpia las filas de la tabla manteniendo las columnas
+//        DefaultTableModel modelo = (DefaultTableModel) jtFactura.getModel();
+//        modelo.setRowCount(0);
 
         // Resto de tu código
         limpiarDatos();
@@ -575,6 +612,14 @@ public class jPCrearFactura extends javax.swing.JPanel {
         totalPagar = totalFactura + iva;
         txtTotalPagar.setText(String.valueOf(totalPagar));
     }//GEN-LAST:event_btnVisualizarFacturaActionPerformed
+
+    private void txtCliSeleccionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCliSeleccionadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCliSeleccionadoActionPerformed
+
+    private void txtFechaFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaFacturaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFechaFacturaActionPerformed
 
     public void limpiarDatos() {
         lblBuscarCliente.setVisible(true);

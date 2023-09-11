@@ -198,6 +198,7 @@
         <Component class="javax.swing.JTextField" name="txtNomProd">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomProdActionPerformed"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtNomProdKeyReleased"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
@@ -206,6 +207,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDescProd">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtDescProdKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtCodProd">
           <Properties>
@@ -225,6 +229,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPesoProd">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPesoProdKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel8">
           <Properties>
@@ -237,6 +244,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPrecioProd">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPrecioProdKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -277,8 +287,14 @@
           </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="jspCantCacao">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jspCantCacaoKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSpinner" name="jspCantStock">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jspCantStockKeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

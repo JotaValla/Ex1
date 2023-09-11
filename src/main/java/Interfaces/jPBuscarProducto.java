@@ -2,11 +2,13 @@ package Interfaces;
 
 import Clases.Producto;
 import Clases.SQLServer;
+import javax.swing.JOptionPane;
 
 public class jPBuscarProducto extends javax.swing.JPanel {
 
     SQLServer metodos;
     Producto producto;
+    
 
     public jPBuscarProducto() {
         initComponents();
@@ -96,6 +98,12 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         lblFiltroCod.setText("Ingrese el código del producto a buscar:");
 
         lblFiltroNom.setText("Ingrese el nombre del producto a buscar:");
+
+        txtNomFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtNomFiltroKeyReleased(evt);
+            }
+        });
 
         lblFiltroCat.setText("Seleccione la categoría:");
 
@@ -452,6 +460,19 @@ public class jPBuscarProducto extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jcbFiltroMainActionPerformed
 
+    private void txtNomFiltroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNomFiltroKeyReleased
+        // Obtener el texto del JTextField
+        String texto = txtNomFiltro.getText();
+
+        // Usar una expresión regular para validar el texto
+        if (!texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]*$")) {
+            // Si el texto no coincide con la expresión regular, mostrar un mensaje de error
+            mostrarMensajeError("Debe ingresar solo letras.");
+            // Limpiar el JTextField o eliminar caracteres no válidos si es necesario
+            txtNomFiltro.setText(texto.replaceAll("[^a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]", ""));
+        }
+    }//GEN-LAST:event_txtNomFiltroKeyReleased
+
     public void limpiarDatosProducto() {
         txtCodProd.setText("");
         txtCodProdBuscar.setText("");
@@ -466,6 +487,11 @@ public class jPBuscarProducto extends javax.swing.JPanel {
         lblFiltroCat.setVisible(false);
         txtNomFiltro.setVisible(false);
         jcbFiltroCat.setVisible(false);
+    }
+
+    private void mostrarMensajeError(String mensaje) {
+        // Puedes mostrar el mensaje de error en un JLabel o en una ventana emergente
+        JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
 
